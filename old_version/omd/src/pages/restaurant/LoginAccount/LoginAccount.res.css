@@ -1,0 +1,114 @@
+@import url("../../../var.css");
+
+.main-registration-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.reg-text-parent,
+.reg-form-parent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.reg-text-parent {
+  background-color: transparent;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: xx-large;
+  color: #000000cb;
+  justify-content: start;
+  margin-top: 35 px;
+  height: calc(100vh - 35 px);
+}
+
+.reg-text-parent img,
+.reg-form-parent-img {
+  width: 50%;
+  filter: drop-shadow(0 0 7px #43af8fc5);
+}
+
+.reg-form-parent-img {
+  display: none;
+  height: 100px;
+  object-fit: contain;
+}
+
+.reg-text-parent b {
+  color: var(--green);
+}
+
+.reg-text-parent p {
+  font-size: medium;
+  margin-top: 10px;
+  margin-bottom: 35px;
+}
+
+.reg-text-parent button {
+  padding: 20px 30px;
+  border-radius: 25px;
+  border: none;
+  background-color: var(--green);
+  color: var(--white);
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.reg-text-parent button:hover {
+  background-color: var(--black);
+  box-shadow: 0 0 10px #3a3a3a;
+}
+
+.reg-form-parent h1 {
+  font-size: xx-large;
+  color: var(--green);
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.already-have-account {
+  color: var(--red);
+  margin-top: 2px;
+}
+
+@media (max-width:1100px) {
+  .reg-text-parent {
+    margin-top: 150px;
+  }
+
+  .reg-text-parent h1,
+  .reg-form-parent h1 {
+    font-size: larger;
+  }
+}
+
+@media (max-width:810px) {
+  .reg-text-parent {
+    display: none;
+  }
+
+  .reg-form-parent-img {
+    display: block;
+  }
+}
+
+.forgot-password-txt {
+  color: var(--red);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: ease-in-out 0.293s;
+}
+
+.forgot-password-txt:hover {
+  background-color: var(--black);
+  color: var(--white);
+}

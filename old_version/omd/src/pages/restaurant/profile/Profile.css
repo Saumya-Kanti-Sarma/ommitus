@@ -1,0 +1,6 @@
+.profile-content-area {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: start;
+}

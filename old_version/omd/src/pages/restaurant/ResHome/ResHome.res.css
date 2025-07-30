@@ -1,0 +1,57 @@
+#res-main-area {
+  height: 100vh;
+  width: 100vw;
+  min-height: 650px;
+  overflow: hidden;
+}
+
+#nav-area-restaurant {
+  height: 60px;
+  overflow: hidden;
+}
+
+#outlet-area-restaurant {
+  height: calc(100vh - 60px);
+  overflow: auto;
+  position: relative;
+}
+
+#outlet-area-restaurant::-webkit-scrollbar {
+  display: none;
+}
+
+#customer-support-txt {
+  position: absolute;
+  bottom: 3%;
+  left: 8%;
+  width: 120px;
+  height: 80px;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #67C15E;
+}
+
+#customer-support-txt a {
+  color: #0540ad;
+  font-style: oblique;
+}
+
+#whatsapp-btn {
+  position: absolute;
+  bottom: 2%;
+  z-index: 99;
+  left: 3%;
+  width: 80px;
+  background-color: transparent;
+  border: none;
+  cursor: default;
+  transition: 0.138s ease-in-out;
+  opacity: 0.77;
+}
+
+#whatsapp-btn:hover {
+  opacity: 1;
+  transform: scale(1.03);
+  width: 90px;
+}

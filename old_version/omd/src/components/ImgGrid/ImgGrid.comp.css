@@ -1,0 +1,110 @@
+.img-div-comp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 604px;
+  overflow: hidden;
+  /* background-color: orange; */
+}
+
+.img-div-comp-heading {
+  text-align: center;
+  opacity: 0.6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  margin-bottom: 10px;
+}
+
+.img-div-imgArea {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.imgs-of-imgGrid {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  background-color: #f8efef;
+}
+
+.delete-image {
+  position: absolute;
+  z-index: 100;
+  background-color: #df2525;
+  padding: 20px 45px;
+  font-size: 17px;
+  border: none;
+  color: #ffffff;
+  border-radius: 12px;
+  bottom: 10px;
+  left: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.delete-image:hover {
+  background-color: black;
+  color: #ff6a6a;
+}
+
+.enlarge-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Centers the image horizontally and vertically */
+  height: 60vh;
+  /* Adjust height as needed */
+  width: 55vw;
+  object-fit: cover;
+  /* Adjust width as needed */
+  z-index: 100;
+  /* Ensure it appears above other elements */
+  background-color: white;
+  /* Optional: background for better visibility */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  /* Optional: for emphasis */
+  border-radius: 8px;
+  /* Optional: rounded corners */
+}
+
+.upload-area {
+  height: 50px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Center the button horizontally */
+  font-size: 1.5rem;
+  color: rgb(68, 68, 68);
+  background-color: #f8efef;
+  /* Blue background */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  margin-bottom: 10px;
+
+}
+
+.upload-area:hover {
+  background-color: #d6cfcf;
+  /* Darker blue on hover */
+}
+
+.upload-btn {
+  opacity: 0;
+  height: 50px;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.upload-txt {
+  position: absolute;
+  opacity: 1;
+  text-decoration: none;
+}

@@ -1,0 +1,11 @@
+@import url("../../var.css");
+
+.btn-comp {
+  padding: 20px 30px;
+  border-radius: 25px;
+  border: none;
+  background-color: var(--green);
+  color: var(--white);
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+}

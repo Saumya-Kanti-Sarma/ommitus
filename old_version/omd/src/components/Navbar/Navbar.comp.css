@@ -1,0 +1,40 @@
+@import url("../../var.css");
+
+.nav-componets {
+  background-color: var(--green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: calc(100vw - 40px);
+  height: 100%;
+  color: var(--white);
+  font-family: sans-serif;
+}
+
+.nav-name {
+  flex: 1;
+  font-size: 25px;
+}
+
+.nav-componets h1 {
+  cursor: pointer;
+}
+
+.nav-link-section {
+  flex: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link-section li {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.active-link {
+  color: var(--black);
+}
