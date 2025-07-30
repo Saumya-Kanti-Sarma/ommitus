@@ -1,0 +1,53 @@
+import mongoose from "mongoose";
+
+const menuSchema = new mongoose.Schema({
+  dishName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  image: {
+    type: [String],
+  },
+  category: {
+    type: String,
+    trim: true,
+  },
+  veg: {
+    type: Boolean,
+    default: false, // not veg by def
+  },
+  description: {
+    type: String,
+    trim: true,
+  },
+  fullPlate: {
+    type: Number,
+    trim: true,
+  },
+  halfPlate: {
+    type: Number,
+    trim: true,
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
+  restaurantId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurant",
+    required: true,
+  },
+});
+
+menuSchema.index(
+  {
+    restaurantId: 1,
+    dishName: 1
+  },
+  {
+    unique: true
+  }
+);
+
+export const menuData = mongoose.model("Menu", menuSchema);
