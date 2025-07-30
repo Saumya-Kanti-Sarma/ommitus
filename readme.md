@@ -17,7 +17,7 @@
 ## 🛠️ Tech Stack
 
 - **Frontend:** React, Vite (v1), Next.js (v2)
-- **Backend:** Express.js (v1), NestJS (v2)
+- **Backend:** Express.js(JS) (v1), Express.js(TS) (v2)
 - **Database:** (Mongodb and Supabase)
 - **Deployment:** Cloudflare and AWS
 
