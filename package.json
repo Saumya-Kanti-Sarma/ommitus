@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "frontend": "cd web/frontend && npx next dev",
+    "backend": "cd web/backend && npm run dev",
+    "git": "docs\\gitcommands.bat"
+  }
+}
