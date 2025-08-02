@@ -4,6 +4,15 @@ import bcrypt from "bcrypt";
 
 const router = express.Router();
 
+// ADMIN routes:
+router.get("/all", async (req: Request, res: Response) => {
+  const data = await restaurantData.find({}, { restaurantName: 1, email: 1, _id: 1, created: 1 })
+  res.status(202).send({
+    data
+  })
+})
+
+
 // Route to create an account
 router.post('/create-account', async (req: Request, res: Response) => {
   console.log("creating account...");
@@ -14,32 +23,32 @@ router.post('/create-account', async (req: Request, res: Response) => {
     // check if restaurant is already registered:
     const check = await restaurantData.findOne({ restaurantName });
     if (check) {
-      return res.status(300).send({
+      res.status(300).send({
         success: false,
         message: "Account Already Exist"
       })
-    };
+    } else {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+      // generate token 
+      const newName = restaurantName.replace(/\s+/g, '');
+      const token = `${newName + Date.now()}`;
 
-    // generate token 
-    const newName = restaurantName.replace(/\s+/g, '');
-    const token = `${newName + Date.now()}`;
+      // Create a new restaurant document
+      const data = new restaurantData({
+        restaurantName,
+        password: hashedPassword,
+        email,
+        token: token
+      });
+      const response = await data.save();
 
-    // Create a new restaurant document
-    const data = new restaurantData({
-      restaurantName,
-      password: hashedPassword,
-      email,
-      token: token
-    });
-    const response = await data.save();
-
-    res.status(200).send({
-      message: 'Account created successfully',
-      data: response,
-    });
+      res.status(200).send({
+        message: 'Account created successfully',
+        data: response,
+      });
+    }
 
   } catch (error) {
     if ((error as any).code == 11000) {
@@ -98,4 +107,40 @@ router.post('/login', async (req: Request, res: Response) => {
   }
 });
 
+// forgot password
+router.put("/forgot-password", async (req: Request, res: Response) => {
+  const { email, password, newPassword } = req.body;
+
+  try {
+    // Validate input fields
+    if (!email || !password || !newPassword) {
+      res.status(400).send({ message: "All fields are required!" });
+    }
+
+    // Find the user by restaurantName and email
+    const verifyUser = await restaurantData.findOne({ email }, { email: 1, password: 1 });
+    if (!verifyUser) {
+      res.status(404).send({ message: "User not found or details do not match!" });
+    } else {
+      // compare password
+      const hashedPassword = await bcrypt.compare(password, verifyUser.password);
+      if (!hashedPassword) {
+        res.status(404).send({ message: "invalid password" });
+      }
+      else {
+        const newHash = await bcrypt.hash(newPassword, 10)
+        const data = await restaurantData.findByIdAndUpdate({ _id: verifyUser._id }, { password: newHash });
+
+        res.status(202).send({
+          message: "password updated successfully",
+          data
+        })
+      }
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: error instanceof Error ? error.message : "unknown error occured",
+    });
+  }
+});
 export default router;
