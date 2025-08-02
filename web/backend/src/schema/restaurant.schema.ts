@@ -33,7 +33,7 @@ const restaurantSchema = new mongoose.Schema({
   },
 
   token: {
-    type: String
+    type: String // this will keep them logged in
   },
   created: {
     type: String,
