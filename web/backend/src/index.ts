@@ -2,7 +2,7 @@ import express, { Response, Request, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import { configDotenv } from 'dotenv';
 import cors from "cors";
-
+import restaurantRoutes from "./routes/restaurant.route";
 configDotenv();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +18,7 @@ app.use("/api", (req: Request, res: Response, next: NextFunction) => {
 })
 
 // Routes
+app.use("/api/restaurant/", restaurantRoutes);
 app.get('/api/health', (_, res: Response) => {
   res.status(201).send("Health Ok!");
 });
