@@ -6,7 +6,7 @@ Welcome to the Ommitus Restaurant API documentation! Here you'll find all the en
 
 ---
 
-## Admin Access APIs
+## Admin APIs
 
 | Name                | Method | URL                                         | Use                                               | Status            |
 |---------------------|--------|---------------------------------------------|---------------------------------------------------|-------------------|
@@ -14,7 +14,7 @@ Welcome to the Ommitus Restaurant API documentation! Here you'll find all the en
 
 ---
 
-## Restaurant Access APIs
+## Restaurant APIs
 
 | Name                        | Method | URL                                                      | Use                                   | Status            |
 |-----------------------------|--------|----------------------------------------------------------|---------------------------------------|-------------------|
@@ -28,6 +28,16 @@ Welcome to the Ommitus Restaurant API documentation! Here you'll find all the en
 ---
 
 > Replace `:id` and `:token` with actual values when making requests.
+---
+## Menu APIs
+
+| Name                        | Method | URL                                                        | Use                                   | Status            |
+|-----------------------------|--------|------------------------------------------------------------|---------------------------------------|-------------------|
+| Create Menu(one/bulk)       | POST   | http://localhost:3000/api/menu/add-menu                    | create new menu                       | Production Ready  |
+| Access menus                | GET    | htt../all?available=true&category=<category>&page=1&limit=5| access menu items with filters        | Production Ready  |
+| Access one menus            | GET    | http://localhost:3000/api/menu/:menuID                     | access one menu                       | Production Ready  |
+| Update menu                 | PUT    | http://localhost:3000/api/menu/:menuID                     | update menu                           | Production Ready  |
+| Delete menu                 | DELETE | http://localhost:3000/api/menu/:menuID                     | delete menu                           | Production Ready  |
 
 ---
 
