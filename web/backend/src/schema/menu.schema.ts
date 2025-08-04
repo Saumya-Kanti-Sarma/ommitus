@@ -38,6 +38,10 @@ const menuSchema = new mongoose.Schema({
     ref: "Restaurant",
     required: true,
   },
+  createdAt: {
+    type: Number,
+    default: Date.now()
+  }
 });
 
 menuSchema.index(
