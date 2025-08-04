@@ -3,6 +3,7 @@ commands.txt
 .env
 docs/gitcommands.bat
 docs/data.json
+docs/*.json
 docs/tests.text
 nodemon.json
 
