@@ -40,5 +40,17 @@ Welcome to the Ommitus Restaurant API documentation! Here you'll find all the en
 | Delete menu                 | DELETE | http://localhost:3000/api/menu/:menuID                     | delete menu                           | Production Ready  |
 
 ---
+## Ratings APIs
+
+| Name                        | Method | URL                                                        | Use                                   | Status            |
+|-----------------------------|--------|------------------------------------------------------------|---------------------------------------|-------------------|
+| Create ratings              | POST   | http://localhost:3000/api/ratings                          | create new menu                       | Production Ready  |
+| Access ratings accordingly  | GET    | http://localhost:3000/api/ratings?menuId=<id>&restaurantId=<id>&page=1&limit=5| access ratings     | Production Ready  |
+| Delete ratings              | DELETE | http://localhost:3000/api/ratings                          | delete ratings                        | Production Ready  |
+
+> Creating ratings need `{dishID, restaurantID, review, customerName, stars, gender}`   
+> Use either menuId or restaurantId to access ratings. DON't USE BOTH   
+> deleting needs ` {restaurantID, ratingID, menuID}`    
+---
 
 Feel free to add more endpoints or update the status as your API evolves!
