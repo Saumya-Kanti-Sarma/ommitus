@@ -6,6 +6,11 @@ const ratingsSchema = new mongoose.Schema({
     ref: "Menu",
     required: true,
   },
+  restaurantID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Menu",
+    required: true,
+  },
   review: {
     type: String,
     trim: true,
