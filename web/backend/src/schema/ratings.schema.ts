@@ -29,19 +29,14 @@ const ratingsSchema = new mongoose.Schema({
     type: String,
     default: Date()
   },
+  createdAt: {
+    type: Number,
+    default: Date.now(),
+  },
   gender: {
     type: Boolean,
     default: true, // true == male
   }
 });
-ratingsSchema.index(
-  {
-    customerID: 1,
-    dishID: 1
-  },
-  {
-    unique: true
-  }
-);
 
 export const ratingsData = mongoose.model("Ratings", ratingsSchema);
