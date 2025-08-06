@@ -4,6 +4,7 @@ import { configDotenv } from 'dotenv';
 import cors from "cors";
 import restaurantRoutes from "./routes/restaurant.route";
 import menuRoutes from "./routes/menu.route";
+import ratingsRoutes from "./routes/ratings.route";
 configDotenv();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,7 +27,8 @@ app.use("/api/menu/", (req: Request, res: Response, next: NextFunction) => {
 
 // Routes
 app.use("/api/restaurant/", restaurantRoutes);
-app.use("/api/menu", menuRoutes)
+app.use("/api/menu", menuRoutes);
+app.use("/api/ratings", ratingsRoutes);
 app.get('/api/health', (_, res: Response) => res.status(201).send("Health Ok!"));
 
 mongoose.connect(`${process.env.MONGO_URL}`)
