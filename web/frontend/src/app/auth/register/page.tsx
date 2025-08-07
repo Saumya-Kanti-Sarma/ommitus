@@ -1,7 +1,7 @@
-export default function Home() {
+export default function Register() {
   return (
     <div className="flex h-full w-full justify-center items-center">
-      <h1>landing page</h1>
+      <h1>Register</h1>
     </div>
   );
 }

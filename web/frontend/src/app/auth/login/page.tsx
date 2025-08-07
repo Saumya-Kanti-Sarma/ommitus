@@ -1,7 +1,7 @@
-export default function Home() {
+export default function Login() {
   return (
     <div className="flex h-full w-full justify-center items-center">
-      <h1>landing page</h1>
+      <h1>Login</h1>
     </div>
   );
 }
