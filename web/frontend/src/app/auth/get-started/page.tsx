@@ -1,13 +1,43 @@
 "use client";
 import { useState } from "react";
+import Cookies from "js-cookie"; // Install: npm install js-cookie
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
-  const handleTogglePassword = () => setShowPassword((prev) => !prev);
+  const router = useRouter();
 
+  const handleTogglePassword = () => setShowPassword((prev) => !prev);
   const handleSwitchMode = () => setIsLogin((prev) => !prev);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
+    const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+    const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+
+    // Validation
+    if (!restaurantName || (!isLogin && (!ownerName || !email)) || !password) {
+      alert("Please fill all required fields.");
+      return;
+    }
+
+    // Save data as cookies (you can encrypt if needed)
+    Cookies.set("restaurantName", restaurantName);
+    if (!isLogin) {
+      Cookies.set("ownerName", ownerName);
+      Cookies.set("email", email);
+    }
+    Cookies.set("password", password);
+
+    // Redirect
+    router.push("/auth/otp");
+  };
 
   return (
     <main className="flex h-[100dvh] w-[100vw] max-2xl:flex-col">
@@ -40,7 +70,10 @@ export default function Login() {
           <b>Ommitus</b>
         </h1>
 
-        <form className="bg-[var(--blue)] shadow-md rounded-xl p-10 space-y-6 w-[98%] max-w-[1000px] max-md:p-5 max-md:space-y-3">
+        <form
+          className="bg-[var(--blue)] shadow-md rounded-xl p-10 space-y-6 w-[98%] max-w-[1000px] max-md:p-5 max-md:space-y-3"
+          onSubmit={handleSubmit}
+        >
           {/* Restaurant Name */}
           <div>
             <label className="block mb-2 font-semibold text-[var(--white)]">
@@ -117,7 +150,7 @@ export default function Login() {
           </div>
 
           <br />
-          <button className="bg-white w-full p-3 rounded-md">
+          <button type="submit" className="bg-white w-full p-3 rounded-md">
             {isLogin ? "Login" : "Create Account"}
           </button>
         </form>
