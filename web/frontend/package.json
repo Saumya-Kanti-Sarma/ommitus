@@ -16,6 +16,7 @@
     "next-cli-toolkit": "^1.0.12",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-hot-toast": "^2.5.2",
     "react-otp-input": "^3.1.1"
   },
   "devDependencies": {

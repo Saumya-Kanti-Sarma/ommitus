@@ -13,30 +13,34 @@ export default function Login() {
   const handleSwitchMode = () => setIsLogin((prev) => !prev);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
     e.preventDefault();
-
-    const form = e.target as HTMLFormElement;
-    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
-    const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-    const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-
-    // Validation
-    if (!restaurantName || (!isLogin && (!ownerName || !email)) || !password) {
-      alert("Please fill all required fields.");
-      return;
-    }
-
-    // Save data as cookies (you can encrypt if needed)
-    Cookies.set("restaurantName", restaurantName);
     if (!isLogin) {
-      Cookies.set("ownerName", ownerName);
-      Cookies.set("email", email);
-    }
-    Cookies.set("password", password);
+      const form = e.target as HTMLFormElement;
+      const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
+      const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+      const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+      const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
 
-    // Redirect
-    router.push("/auth/otp");
+      // Validation
+      if (!restaurantName || (!isLogin && (!ownerName || !email)) || !password) {
+        alert("Please fill all required fields.");
+        return;
+      }
+
+      // Save data as cookies (you can encrypt if needed)
+      Cookies.set("restaurantName", restaurantName);
+      if (!isLogin) {
+        Cookies.set("ownerName", ownerName);
+        Cookies.set("email", email);
+      }
+      Cookies.set("password", password);
+
+      // Redirect
+      router.push("/auth/otp");
+    }
+
+
   };
 
   return (
