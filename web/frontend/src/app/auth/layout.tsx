@@ -1,4 +1,11 @@
 import "../../app/globals.css";
+
+export const metadata = {
+  title: 'Get Started With Ommitus',
+  description: 'Authentication routes od Ommitus',
+}
+
+
 export default function RootLayout({
   children,
 }: {

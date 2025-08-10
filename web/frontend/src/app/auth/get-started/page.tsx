@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Cookies from "js-cookie"; // Install: npm install js-cookie
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,6 +16,7 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
+    // logic for sign-up / creating account 
     if (!isLogin) {
       const form = e.target as HTMLFormElement;
       const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
@@ -24,18 +26,14 @@ export default function Login() {
 
       // Validation
       if (!restaurantName || (!isLogin && (!ownerName || !email)) || !password) {
-        alert("Please fill all required fields.");
+        toast.error("Please fill all required fields.");
         return;
       }
-
       // Save data as cookies (you can encrypt if needed)
       Cookies.set("restaurantName", restaurantName);
-      if (!isLogin) {
-        Cookies.set("ownerName", ownerName);
-        Cookies.set("email", email);
-      }
+      Cookies.set("ownerName", ownerName);
+      Cookies.set("email", email);
       Cookies.set("password", password);
-
       // Redirect
       router.push("/auth/otp");
     }
