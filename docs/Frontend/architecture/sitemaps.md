@@ -25,8 +25,7 @@ Ommitus is structured into five main portals, each with its own route prefix:
 
 | Route                   | Description              |
 | ----------------------- | ------------------------ |
-| `/auth/register`        | User registration        |
-| `/auth/login`           | User login               |
+| `/auth/get-started`     | User registration & login        |
 | `/auth/forgot-password` | Forgot password recovery |
 
 ---
