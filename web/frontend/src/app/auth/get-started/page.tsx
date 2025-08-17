@@ -1,13 +1,14 @@
 "use client";
 import { useRef, useState } from "react";
-import Cookies from "js-cookie"; // Install: npm install js-cookie
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // to toggle visibility of password
+  const [isLogin, setIsLogin] = useState(false); // setting state to toggle login and sign-up function (when login is true, ownername and email is invisible )
 
+  // referances for auto focus on pressing Enter, ArrowUp and ArrowDown
   const resRef = useRef<HTMLInputElement>(null);
   const ownerNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -20,22 +21,27 @@ export default function Login() {
   const handleSwitchMode = () => setIsLogin((prev) => !prev);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
     e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    //  removing spaces with _ because some browser replaces spaces with _$_ when saved in cookies
+    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
+    const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim();
+    const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+
     // logic for sign-up / creating account 
     if (!isLogin) {
-      const form = e.target as HTMLFormElement;
-      const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
-      const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-      const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-      const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-
+      {/*
+        Step  01: Check if all fileds are available
+        Step  02: Sent OTP to email
+        Step  03: navigate to /auth/otp
+        */}
       // Validation
       if (!restaurantName || (!isLogin && (!ownerName || !email)) || !password) {
         toast.error("Please fill all required fields.");
         return;
       }
-      // Save data as cookies (you can encrypt if needed)
       Cookies.set("restaurantName", restaurantName);
       Cookies.set("ownerName", ownerName);
       Cookies.set("email", email);
@@ -47,6 +53,7 @@ export default function Login() {
 
   };
 
+  // function that handles auto foucs of input fileds 
   const handleKeyDown = (
     nextRef: React.RefObject<HTMLInputElement | HTMLButtonElement | null>,
     prevRef: React.RefObject<HTMLInputElement | HTMLButtonElement | null>,
