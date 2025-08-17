@@ -3,6 +3,7 @@ import "../../app/globals.css";
 export const metadata = {
   title: 'Get Started With Ommitus',
   description: 'Authentication routes od Ommitus',
+  icons: "/logo/blue-logo.svg"
 }
 
 
