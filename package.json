@@ -1,7 +1,9 @@
 {
   "scripts": {
     "frontend": "cd web/frontend && npx next dev",
+    "install-frontend": "cd web/frontend && npm install",
     "backend": "cd web/backend && npm run dev",
+    "install-backend": "cd web/backend && npm install",
     "git": "docs\\gitcommands.bat"
   }
 }
