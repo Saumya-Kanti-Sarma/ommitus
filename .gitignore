@@ -6,7 +6,7 @@ docs/data.json
 docs/*.json
 docs/tests.text
 nodemon.json
-
+docs/wokflow.md
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
