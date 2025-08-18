@@ -15,15 +15,15 @@ router.get("/all", async (req: Request, res: Response) => {
 
 // Route to create an account
 router.post('/create-account', async (req: Request, res: Response) => {
-  console.log("creating account...");
+  //console.log("creating account...");
 
   try {
-    const { restaurantName, password, email } = req.body;
+    const { restaurantName, password, email, ownerName } = req.body;
 
     // check if restaurant is already registered:
     const check = await restaurantData.findOne({ restaurantName });
     if (check) {
-      res.status(300).send({
+      res.status(409).send({
         success: false,
         message: "Account Already Exist"
       })
@@ -40,6 +40,7 @@ router.post('/create-account', async (req: Request, res: Response) => {
         restaurantName,
         password: hashedPassword,
         email,
+        ownerName,
         token: token
       });
       const response = await data.save();
@@ -48,13 +49,16 @@ router.post('/create-account', async (req: Request, res: Response) => {
         message: 'Account created successfully',
         data: response,
       });
+      //console.log("account created");
+
     }
 
   } catch (error) {
     if ((error as any).code == 11000) {
       res.status(400).send({
         message: "Provided email is already registered, please try another email"
-      })
+      });
+      //console.log("cannot created");
     }
 
     else {
@@ -62,6 +66,7 @@ router.post('/create-account', async (req: Request, res: Response) => {
         message: "Error in creating account",
         error: error
       });
+      //console.log("cannot created");
     }
 
   }
