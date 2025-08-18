@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -219,6 +220,7 @@ export default function Login() {
                 />
               </button>
             </div>
+            <Link href={"/auth/forgot-password"} className={`text-[var(--white)] ${isLogin ? "block" : "hidden"}`}>Forgot password?</Link>
           </div>
 
           <br />
