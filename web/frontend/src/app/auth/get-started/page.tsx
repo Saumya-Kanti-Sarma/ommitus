@@ -3,8 +3,11 @@ import { useRef, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function Login() {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false); // to toggle visibility of password
   const [isLogin, setIsLogin] = useState(false); // setting state to toggle login and sign-up function (when login is true, ownername and email is invisible )
 
@@ -15,43 +18,76 @@ export default function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const actionBtndRef = useRef<HTMLButtonElement>(null); // create acount / login btn
 
-  const router = useRouter();
+  // environment variables
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   const handleTogglePassword = () => setShowPassword((prev) => !prev);
   const handleSwitchMode = () => setIsLogin((prev) => !prev);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    //  removing spaces with _ because some browser replaces spaces with _$_ when saved in cookies
-    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_")
+    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
     const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim();
     const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
 
-    // logic for sign-up / creating account 
-    if (!isLogin) {
-      {/*
-        Step  01: Check if all fileds are available
-        Step  02: Sent OTP to email
-        Step  03: navigate to /auth/otp
-        */}
-      // Validation
-      if (!restaurantName || (!isLogin && (!ownerName || !email)) || !password) {
-        toast.error("Please fill all required fields.");
-        return;
+
+    const loading = toast.loading(isLogin ? "Login account..." : "Creating account...");
+    try {
+      if (isLogin) {
+        // LOGIN
+        if (!restaurantName || !password) {
+
+          toast.error("Restaurant name and password required.");
+          return;
+        }
+
+        const { data } = await axios.post(
+          `${API_URL}/api/restaurant/login`,
+          { restaurantName, password },
+          { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
+        );
+        console.log(data);
+
+        Cookies.set("token", data.data.token, { expires: 7 });
+        Cookies.set("restaurantId", data.data._id);
+
+
+        toast.success("Login successful!");
+        router.push(`/restaurant/${data.data._id}`);
+
+      } else {
+        // SIGNUP
+        if (!restaurantName || !ownerName || !email || !password) {
+          toast.error("Please fill all required fields.");
+          return;
+        }
+
+        const { data } = await axios.post(
+          `${API_URL}/api/restaurant/create-account`,
+          { restaurantName, ownerName, email, password },
+          { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
+        );
+
+        console.log(data);
+
+        Cookies.set("token", data.data.token, { expires: 7 });
+        Cookies.set("restaurantId", data.data._id);
+
+        toast.success("Account created successfully!");
+        router.push(`/restaurant/${data.data._id}`);
       }
-      Cookies.set("restaurantName", restaurantName);
-      Cookies.set("ownerName", ownerName);
-      Cookies.set("email", email);
-      Cookies.set("password", password);
-      // Redirect
-      router.push("/auth/otp");
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Something went wrong. Try again later.");
+    } finally {
+      toast.dismiss(loading)
     }
-
-
   };
+
 
   // function that handles auto foucs of input fileds 
   const handleKeyDown = (
@@ -59,7 +95,7 @@ export default function Login() {
     prevRef: React.RefObject<HTMLInputElement | HTMLButtonElement | null>,
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    console.log(event.key);
+    // console.log(event.key);
 
     if (event.key === "Enter" || event.key === "ArrowDown") {
       event.preventDefault()
@@ -83,9 +119,6 @@ export default function Login() {
           OMMITUS
         </h1>
         <div className="flex flex-col">
-          <h3 className="text-4xl font-semibold m-0 max-lg:text-2xl">
-            WELCOME TO <b>OMMITUS MANAGEMENT</b>
-          </h3>
           <p className="text-4xl italic m-0">
             The best RMS provider in India...
           </p>
@@ -93,7 +126,7 @@ export default function Login() {
       </aside>
 
       {/* Right Form Section */}
-      <div className=" w-full flex-1 flex flex-col justify-center items-center px-2 py-12 max-2xl:flex-5 max-2xl:justify-start max-2xl:py-0">
+      <div className=" w-full flex-2 flex flex-col justify-center items-center px-2 py-12 max-2xl:flex-5 max-2xl:justify-start max-2xl:py-0">
         <h1 className=" text-center text-4xl text-[var(--blue)] font-bold my-5 max-md:text-xl">
           {isLogin
             ? "Login Your Restaurant With "
@@ -193,7 +226,7 @@ export default function Login() {
           {/* action button (Create account / login account) */}
           <button
             type="submit"
-            className="bg-white w-full p-3 rounded-md"
+            className="bg-white w-full p-3 rounded-md opacity-70 hover:opacity-100  transition duration-300"
             ref={actionBtndRef}
             onKeyDown={(e) => {
               if (e.key == "ArrowUp") {
@@ -215,14 +248,14 @@ export default function Login() {
             ? "Don't have an account?"
             : "Already have Account?"}{" "}
           <button
-            className="text-[var(--red)]"
+            className="text-[var(--red)] hover:underline opacity-70 hover:opacity-100 transition duration-300"
             onClick={handleSwitchMode}
           >
             {isLogin ? "Click here to Register" : "Click here to Login"}
           </button>
         </p>
 
-        <button className="w-[96%] max-w-[1000px] p-4 rounded-2xl bg-[var(--blue)] text-white mt-10 text-2xl font-medium">
+        <button className="w-[96%] max-w-[1000px] p-4 rounded-2xl bg-[var(--blue)] text-white mt-10 text-2xl font-medium opacity-70 hover:opacity-100 transition duration-300">
           Watch a tutorial
         </button>
       </div>
