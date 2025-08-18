@@ -117,33 +117,35 @@ router.put("/forgot-password", async (req: Request, res: Response) => {
   const { email, password, newPassword } = req.body;
 
   try {
-    // Validate input fields
     if (!email || !password || !newPassword) {
-      res.status(400).send({ message: "All fields are required!" });
+      return res.status(400).send({ message: "All fields are required!" });
     }
 
-    // Find the user by restaurantName and email
-    const verifyUser = await restaurantData.findOne({ email }, { email: 1, password: 1 });
-    if (!verifyUser) {
-      res.status(404).send({ message: "User not found or details do not match!" });
-    } else {
-      // compare password
-      const hashedPassword = await bcrypt.compare(password, verifyUser.password);
-      if (!hashedPassword) {
-        res.status(404).send({ message: "invalid password" });
-      }
-      else {
-        const newHash = await bcrypt.hash(newPassword, 10)
-        const data = await restaurantData.findByIdAndUpdate({ _id: verifyUser._id }, { password: newHash });
-
-        res.status(202).send({
-          message: "password updated successfully",
-        })
-      }
+    const user = await restaurantData.findOne({ email });
+    if (!user) {
+      return res.status(404).send({ message: "Invalid credentials" });
     }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).send({ message: "Invalid credentials" });
+    }
+
+    if (password === newPassword) {
+      return res.status(400).send({ message: "New password cannot be same as old password" });
+    }
+
+    const newHash = await bcrypt.hash(newPassword, 10);
+    await restaurantData.findByIdAndUpdate(
+      user._id,
+      { password: newHash },
+      { new: true }
+    );
+
+    return res.status(200).send({ message: "Password updated successfully" });
   } catch (error) {
-    res.status(500).send({
-      message: error instanceof Error ? error.message : "unknown error occured",
+    return res.status(500).send({
+      message: error instanceof Error ? error.message : "Unknown error occurred",
     });
   }
 });
