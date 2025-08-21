@@ -2,19 +2,19 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 export default function Navbar() {
   const [restaurantId, setRestaurantId] = useState<string | null>(null);
   const [restaurantName, setRestaurantName] = useState<string | null>(null);
-
   useEffect(() => {
     const id = Cookies.get("restaurantId");
     const name = Cookies.get("restaurantName");
-    if (id) setRestaurantId(id);
-    if (name) setRestaurantName(name);
+    if (!name || !id) redirect("/auth/get-started");
+    setRestaurantId(id);
+    setRestaurantName(name as string);
   }, []);
 
-  if (!restaurantId || !restaurantName) return null;
 
   return (
     <nav className="w-full bg-[var(--blue)] text-[var(--white)] flex justify-between items-center px-6 py-3 shadow-md">
