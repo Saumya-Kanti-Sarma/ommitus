@@ -30,10 +30,10 @@ export default function Login() {
     e.preventDefault();
 
     const form = e.target as HTMLFormElement;
-    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
-    const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim();
+    const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim();
     const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim();
-    const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim().replace(/\s+/g, "_");
+    const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim();
 
 
     const loading = toast.loading(isLogin ? "Login account..." : "Creating account...");
@@ -51,9 +51,10 @@ export default function Login() {
           { restaurantName, password },
           { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
         );
-        console.log(data);
+        //console.log(data);
 
         Cookies.set("token", data.data.token, { expires: 7 });
+        Cookies.set("restaurantName", restaurantName, { expires: 7 });
         Cookies.set("restaurantId", data.data._id);
 
 
@@ -73,10 +74,11 @@ export default function Login() {
           { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
         );
 
-        console.log(data);
+        //console.log(data);
 
         Cookies.set("token", data.data.token, { expires: 7 });
-        Cookies.set("restaurantId", data.data._id);
+        Cookies.set("restaurantId", data.data._id, { expires: 7 });
+        Cookies.set("restaurantName", restaurantName, { expires: 7 });
 
         toast.success("Account created successfully!");
         router.push(`/restaurant/${data.data._id}`);
@@ -85,7 +87,7 @@ export default function Login() {
       console.error(err);
       toast.error(err.response?.data?.message || "Something went wrong. Try again later.");
     } finally {
-      toast.dismiss(loading)
+      toast.dismiss(loading);
     }
   };
 
@@ -96,7 +98,7 @@ export default function Login() {
     prevRef: React.RefObject<HTMLInputElement | HTMLButtonElement | null>,
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    // console.log(event.key);
+    //console.log(event.key);
 
     if (event.key === "Enter" || event.key === "ArrowDown") {
       event.preventDefault()
