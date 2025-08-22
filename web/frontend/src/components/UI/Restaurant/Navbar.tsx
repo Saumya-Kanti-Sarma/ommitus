@@ -21,18 +21,18 @@ export default function Navbar() {
 
   return (
     <nav className="w-full h-[70px] bg-[var(--blue)] text-[var(--white)] flex justify-between items-center px-6 py-3 shadow-md relative max-md:h-[60px]">
-      <h1 className="text-xl font-bold">{restaurantName}</h1>
+      <Link href={`/restaurant/${restaurantId}`}><h1 className="text-xl font-bold">{restaurantName}</h1></Link>
 
       {/* Desktop Nav */}
       <ul className="hidden md:flex gap-6 text-lg">
         <li>
           <Link href={`/restaurant/${restaurantId}/create`} className="hover:text-[var(--black)]">
-            Create
+            Create Menu
           </Link>
         </li>
         <li>
-          <Link href={`/restaurant/${restaurantId}/menus`} className="hover:text-[var(--black)]">
-            Menus
+          <Link href={`/restaurant/${restaurantId}/menu`} className="hover:text-[var(--black)]">
+            All Menus
           </Link>
         </li>
         <li>
