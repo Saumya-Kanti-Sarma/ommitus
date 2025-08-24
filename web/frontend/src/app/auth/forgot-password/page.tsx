@@ -1,22 +1,44 @@
 "use client";
+{/*
+  file path:  web/frontend/src/app/auth/forgot-password/page.tsx
+  Note     :  this file has authentation logic for changing password
+  route    :  `/auth/forgot-password`
+ */}
+
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+
+  // toggling input type of password 
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
+  //API keys (check .example.env)
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // input datas: this will store the values of input fields by handleOnChange function
+  const [inputData, setInputData] = useState({
+    email: "",
+    password: "",
+    newPassword: "",
+  })
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setInputData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email || !password || !newPassword) {
+    if (inputData.email.length <= 0 || inputData.password.length <= 0 || inputData.newPassword.length <= 0) {
       toast.error("All fields are required!");
       return;
     }
@@ -25,22 +47,22 @@ export default function ForgotPassword() {
     try {
       const { data } = await axios.put(
         `${API_URL}/api/restaurant/forgot-password`,
-        { email, password, newPassword },
+        inputData,
         { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
       );
-      console.log(data);
 
+      //console.log(data);
       toast.success(data.message || "Password updated successfully!");
-      setEmail("");
-      setPassword("");
-      setNewPassword("");
+
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Something went wrong.");
     } finally {
       toast.dismiss(loading);
     }
   };
-  const isDisabled = !email || !password || !newPassword;
+  // stays false untill all fileds habe value >0
+  const isDisabled = inputData.email.length <= 0 || inputData.password.length <= 0 || inputData.newPassword.length <= 0;
+
   return (
     <div className="flex flex-col h-screen w-full justify-center items-center bg-[var(--white)]">
       <h1 className="text-8xl font-bold text-[var(--blue)] mb-2 max-md:text-5xl">OMMITUS</h1>
@@ -59,8 +81,8 @@ export default function ForgotPassword() {
         <input
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          onChange={handleOnChange}
           className="p-2 rounded-md border focus:outline-none text-white focus:ring-2 focus:ring-[var(--white)] focus:border-none bg-transparent"
         />
 
@@ -69,8 +91,8 @@ export default function ForgotPassword() {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Current Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            onChange={handleOnChange}
             className="w-full p-2 rounded-md border focus:outline-none text-white focus:ring-2 focus:ring-[var(--white)] focus:border-none bg-transparent"
           />
           <button
@@ -91,8 +113,8 @@ export default function ForgotPassword() {
           <input
             type={showNewPassword ? "text" : "password"}
             placeholder="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            name="newPassword"
+            onChange={handleOnChange}
             className="w-full p-2 rounded-md border focus:outline-none text-white focus:ring-2 focus:ring-[var(--white)] focus:border-none bg-transparent"
           />
           <button

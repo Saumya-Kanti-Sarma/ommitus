@@ -1,4 +1,10 @@
 "use client";
+{/*
+  file path:  web/frontend/src/app/auth/get-started/page.tsx
+  Note     :  this file has authentation logic for restaurant sign-up and login
+  route    :  `/auth/get-started/`
+ */}
+
 import { useRef, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
@@ -19,72 +25,79 @@ export default function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const actionBtndRef = useRef<HTMLButtonElement>(null); // create acount / login btn
 
+  // input datas: this will store the values of input fields by handleOnChange function
+  const [inputData, setInputData] = useState({
+    restaurantName: "",
+    ownerName: "",
+    email: "",
+    password: ""
+  })
+
   // environment variables
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   const handleTogglePassword = () => setShowPassword((prev) => !prev);
-  const handleSwitchMode = () => setIsLogin((prev) => !prev);
+  const handleSwitchMode = () => setIsLogin((prev) => !prev); // toggles sign-up and login
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setInputData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const form = e.target as HTMLFormElement;
-    const restaurantName = (form.elements.namedItem("restaurantName") as HTMLInputElement)?.value.trim();
-    const ownerName = (form.elements.namedItem("ownerName") as HTMLInputElement)?.value.trim();
-    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value.trim();
-    const password = (form.elements.namedItem("password") as HTMLInputElement)?.value.trim();
-
-
     const loading = toast.loading(isLogin ? "Login account..." : "Creating account...");
     try {
+      // LOGIN
       if (isLogin) {
-        // LOGIN
-        if (!restaurantName || !password) {
-
+        if (inputData.restaurantName.length <= 0 || inputData.password.length <= 0) {
           toast.error("Restaurant name and password required.");
           return;
         }
 
         const { data } = await axios.post(
           `${API_URL}/api/restaurant/login`,
-          { restaurantName, password },
-          { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
+          inputData,
+          { headers: { "Content-Type": "application/json", "xkc": API_KEY! } } // xkc is the Backend API key (check .example.env)
         );
         //console.log(data);
 
         Cookies.set("token", data.data.token, { expires: 7 });
-        Cookies.set("restaurantName", restaurantName, { expires: 7 });
+        Cookies.set("restaurantName", inputData.restaurantName, { expires: 7 });
         Cookies.set("restaurantId", data.data._id);
-
 
         toast.success("Login successful!");
         router.push(`/restaurant/${data.data._id}`);
 
       } else {
         // SIGNUP
-        if (!restaurantName || !ownerName || !email || !password) {
+        if (inputData.restaurantName.length <= 0 || inputData.email.length <= 0 || inputData.ownerName.length <= 0 || inputData.password.length <= 0) {
           toast.error("Please fill all required fields.");
           return;
         }
 
         const { data } = await axios.post(
           `${API_URL}/api/restaurant/create-account`,
-          { restaurantName, ownerName, email, password },
+          inputData,
           { headers: { "Content-Type": "application/json", "xkc": API_KEY! } }
         );
-
         //console.log(data);
 
         Cookies.set("token", data.data.token, { expires: 7 });
         Cookies.set("restaurantId", data.data._id, { expires: 7 });
-        Cookies.set("restaurantName", restaurantName, { expires: 7 });
+        Cookies.set("restaurantName", inputData.restaurantName, { expires: 7 });
 
         toast.success("Account created successfully!");
         router.push(`/restaurant/${data.data._id}`);
       }
     } catch (err: any) {
-      console.error(err);
+      //console.error(err);
       toast.error(err.response?.data?.message || "Something went wrong. Try again later.");
     } finally {
       toast.dismiss(loading);
@@ -153,6 +166,7 @@ export default function Login() {
               className="w-full border border-[var(--gray)] p-2 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
               ref={resRef}
               onKeyDown={(e) => handleKeyDown(ownerNameRef, actionBtndRef, e)}
+              onChange={handleOnChange}
             />
           </div>
 
@@ -169,6 +183,7 @@ export default function Login() {
                 placeholder="Enter the name of restaurant owner"
                 className="w-full border border-[var(--gray)] p-2 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
                 onKeyDown={(e) => handleKeyDown(emailRef, resRef, e)}
+                onChange={handleOnChange}
               />
             </div>
           )}
@@ -187,6 +202,7 @@ export default function Login() {
                   placeholder="Enter the email id"
                   className="flex-1 border border-[var(--gray)] p-2 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
                   onKeyDown={(e) => handleKeyDown(passwordRef, ownerNameRef, e)}
+                  onChange={handleOnChange}
                 />
               </div>
             </div>
@@ -205,6 +221,7 @@ export default function Login() {
                 placeholder="•••••"
                 className="flex-1 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
                 onKeyDown={(e) => handleKeyDown(actionBtndRef, emailRef, e)}
+                onChange={handleOnChange}
               />
               <button
                 type="button"

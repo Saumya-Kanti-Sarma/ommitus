@@ -1,14 +1,23 @@
 "use client";
-import axios, { AxiosError } from "axios";
+{/*
+  file path:  web/frontend/src/app/restaurant/[id]/create/page.tsx
+  Note     :  this file has logic for creating / hossting dishes in menu. It uses 3 APIs 
+              1. fetching all categories of the restaurant
+              2. uploading dish detailes to server
+              3. uplaoding dish image to supabase (native next API)
+  route    :  `/restaurant/:id/create`
+ */}
+
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-
 export default function DishForm() {
-  const [image, setImage] = useState<File | null>(null); // this stores the image file
-  const [preview, setPreview] = useState<string | null>(null); // this stores the url of image  to preview it before uploading and to show on screen
-  const [categories, setCategories] = useState<string[]>([]);// lists of all categories i.e fetched from server
+  const [image, setImage] = useState<File | null>(null); // this will store the image File
+  const [preview, setPreview] = useState<string | null>(null); // this will store the url of image  to preview it before uploading and to show on screen
+  const [categories, setCategories] = useState<string[]>([]);// this will store the list of all categories fetched from server
+
   const [formData, setFromData] = useState({
     dishName: "",
     image: "",
@@ -28,11 +37,10 @@ export default function DishForm() {
   //Cookies
   const restaurantId = Cookies.get("restaurantId");
   useEffect(() => {
-    const restaurantId = Cookies.get("restaurantId");
     if (restaurantId) {
       setFromData((prev) => ({ ...prev, restaurantId }));
     }
-  }, [])
+  }, [restaurantId])
 
   // load categories
   useEffect(() => {
@@ -52,7 +60,8 @@ export default function DishForm() {
         setCategories(data.categories);
       }
       catch (err) {
-        console.error("Error fetching restaurant info:", err);
+        toast.error("Unable to load categories");
+        //console.error("Error fetching restaurant info:", err);
       }
     };
     fetchRestaurantInfo();
@@ -92,15 +101,16 @@ export default function DishForm() {
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const loading = toast.loading("Uploading menu...");
-    console.log("Submitted");
+    //console.log("Submitted");
 
     try {
       let uploadedImageUrl = "";
 
       // 1. Upload image to Supabase
       if (image) {
-        const formData = new FormData();
+        const formData = new FormData(); // creating fromData class becasue backend accepts FormData
         formData.append("file", image);
 
         const uploadRes = await axios.post("/api/upload-img", formData);
@@ -123,7 +133,7 @@ export default function DishForm() {
       );
 
       toast.success(res.data.message || "Menu added successfully");
-      console.log(res.data);
+      //console.log(res.data);
 
     } catch (err: any) {
       if (axios.isAxiosError(err)) {
@@ -131,7 +141,7 @@ export default function DishForm() {
         toast.error(err.response?.data?.error || "Request failed");
       } else {
         // Non-Axios error
-        console.error("Unexpected error:", err);
+        //console.error("Unexpected error:", err);
         toast.error("Something went wrong");
       }
     } finally {

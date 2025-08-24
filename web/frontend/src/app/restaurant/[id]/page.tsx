@@ -1,9 +1,10 @@
 "use client";
 {/*
-  NOTES:
-    1. restaurantName and email cannot be changed. this can only be changed in future versions when we accept premium plans
+  file path:  web/frontend/src/app/restaurant/[id]/page.tsx
+  Note     :  this file has logic for updating restaurant fields like categories, address, since, phoneNumber and created at (restaurantName and email cannot be changed. this can only be changed in future versions when we accept premium plans)
+  route    :  `/restaurant/:id`
+ */}
 
-*/}
 
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -24,19 +25,21 @@ interface RestaurantInfo {
 }
 
 const Page = () => {
-  const [restaurantId, setRestaurantId] = useState<string | null>(null); //getting the restaurant ID from cookie (saved as restaurantId)
-  const [restaurantName, setRestaurantName] = useState<string | null>(null);//getting the restaurant name from cookie (saved as restaurantName)
-  const [displayAddCategories, setDisplayAddCategories] = useState(false);// when add more btn in category is clicked this is toggled to show input element.
-  const [categories, SetCategories] = useState<string[]>([])
+  const [restaurantId, setRestaurantId] = useState<string | null>(null); // this will store restaurant ID from cookie (saved as restaurantId)
+  const [restaurantName, setRestaurantName] = useState<string | null>(null); // this will store restaurant name from cookie (saved as restaurantName)
+
+  const [categories, SetCategories] = useState<string[]>([]) // this will store info.categories because mapping the categpry directly throws an error (i dont know why) 
+  const [displayAddCategories, setDisplayAddCategories] = useState(false); // when 'add more' btn in category is clicked this is toggled to show input element.
+
   const [info, setInfo] = useState<RestaurantInfo>({
     email: "",
     ownerName: "",
-    categories: [],
+    categories: [],// only to prevent entring of other dataTypes in this array, we need interface
     address: "",
     since: "",
     phoneNumber: "",
     createdAt: ""
-  }); // information of restaurant fetched from server is stored here
+  });
 
   // gettinf id and restaurant name from cookie
   useEffect(() => {
@@ -98,13 +101,13 @@ const Page = () => {
       }));
 
       console.log(info);
-      return; // Prevents the next setInfo from running
+      return;
     };
     setInfo(prev => ({
       ...prev,
       [name]: value
     }));
-    console.log(info);
+    //console.log(info);
   }
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
