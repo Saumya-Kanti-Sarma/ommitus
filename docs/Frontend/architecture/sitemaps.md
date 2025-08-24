@@ -10,7 +10,7 @@ Ommitus is structured into five main portals, each with its own route prefix:
 
 ---
 
-## 1. Landing Portal (`/`)
+## 1. Landing Portal (`/`) 
 
 | Route      | Description                |
 | ---------- | -------------------------- |
@@ -19,15 +19,17 @@ Ommitus is structured into five main portals, each with its own route prefix:
 | `/pricing` | Pricing plans              |
 | `/faq`     | Frequently asked questions |
 
+> When this is broken down into microservices I'd like to make the landing page with Next.js for 2 main reason: 1. SEO friendly, 2. SSR
 ---
 
 ## 2. Auth Portal (`/auth`)
 
 | Route                   | Description              |
 | ----------------------- | ------------------------ |
-| `/auth/get-started`     | User registration & login        |
+| `/auth/get-started`     | User registration & login|
 | `/auth/forgot-password` | Forgot password recovery |
 
+> Make this part with Next.js (Microservice)
 ---
 
 ## 3. Restaurant Portal (`/restaurant/:id`)
@@ -42,7 +44,7 @@ Ommitus is structured into five main portals, each with its own route prefix:
 | `/restaurant/:id/unavailable` | List of unavailable menu items                   |
 | `/restaurant/:id/qr-code`     | QR code page for menu access                     |
 | `/restaurant/:id/stats`       | Restaurant stats (menu visits, top dishes, etc.) |
-
+> Make this part in VITE.js (Microservice)
 ---
 
 ## 4. Customer Portal (`/customer/:restaurantName`)
@@ -55,7 +57,7 @@ Ommitus is structured into five main portals, each with its own route prefix:
 | `/customer/:restaurantName/menu`            | Menu display                   |
 | `/customer/:restaurantName/:dishId`         | Individual dish page           |
 | `/customer/:restaurantName/:dishId/ratings` | Individual dish rating page    |
-
+> Make this part in VITE.js (Microservice)
 ---
 
 ## 5. Admin Portal (`/admin`)
@@ -65,7 +67,7 @@ Ommitus is structured into five main portals, each with its own route prefix:
 | Route    | Description                                                                   |
 | -------- | ----------------------------------------------------------------------------- |
 | `/admin` | Admin dashboard to monitor: daily traffic, best restaurants, UX metrics, etc. |
-
+> Make this part in VITE.js (Microservice)
 ---
 
 ### Notes for Future Devs:
