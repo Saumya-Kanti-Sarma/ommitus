@@ -10,6 +10,7 @@
     "nextcli": "nextcli"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.56.0",
     "axios": "^1.11.0",
     "js-cookie": "^3.0.5",
     "js-cookies": "^1.0.4",
