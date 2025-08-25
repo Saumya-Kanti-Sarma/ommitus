@@ -156,10 +156,10 @@ export default function DishForm() {
         onSubmit={handleSubmit}
         className="bg-[var(--white)]  rounded-2xl shadow-2xl w-[98%] max-w-[1080px] p-10"
       >
-        <h1 className="text-2xl font-bold text-[var(--blue)] mb-4">Add Dish To Menu</h1>
+        <h1 className="text-2xl font-bold text-[var(--blue)] mb-4 max-md:text-[16px]">Add Dish To Menu</h1>
 
         {/* Dish Name */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
+        <label className="block mb-2 text-[var(--dark-blue)] font-semibold max-md:text-[12px] max-md:mb-1">
           Dish Name
         </label>
         <input
@@ -167,12 +167,12 @@ export default function DishForm() {
           name="dishName"
           placeholder="Enter dish name"
           onChange={handleOnChange}
-          className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
+          className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
           required
         />
 
         {/* Image Upload */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
+        <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
           Dish Image
         </label>
         <div className="border-2 border-dashed border-[var(--blue)] rounded-lg p-4 text-center mb-4 cursor-pointer relative w-full">
@@ -185,7 +185,7 @@ export default function DishForm() {
           />
           {!preview && (
             <>
-              <label htmlFor="imageUpload" className="cursor-pointer">
+              <label htmlFor="imageUpload" className="cursor-pointer max-md:text-[14px]">
                 Drag & Drop or Click to Upload
               </label>
             </>
@@ -201,18 +201,19 @@ export default function DishForm() {
         </div>
 
         {/* Category */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
+        <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
           Category
         </label>
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-4 mb-4 flex-wrap">
           {categories && categories.length > 0 && categories.map((cat) => (
-            <label key={cat} className="flex items-center gap-2">
+            <label key={cat} className="flex items-center gap-2  max-md:text-[10px]">
               <input
                 type="radio"
                 name="category"
                 onChange={handleOnChange}
                 value={cat}
                 defaultChecked={cat === "Starter"}
+
               />
               {cat}
             </label>
@@ -220,34 +221,34 @@ export default function DishForm() {
         </div>
 
         {/* Veg/Non-Veg */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
+        <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
           Is Veg?
         </label>
         <div className="flex gap-4 mb-4">
           <label className="flex items-center gap-2">
-            <input type="radio" name="veg" value="Yes" onChange={handleOnChange} />
+            <input type="radio" name="veg" value="Yes" onChange={handleOnChange} className="max-md:text-[10px]" />
             Yes
           </label>
           <label className="flex items-center gap-2">
-            <input type="radio" name="veg" value="No" onChange={handleOnChange} defaultChecked />
+            <input type="radio" name="veg" value="No" onChange={handleOnChange} defaultChecked className="max-md:text-[10px]" />
             No
           </label>
         </div>
 
         {/* Description */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
+        <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
           Description
         </label>
         <input
           name="description"
           placeholder="Enter description"
           onChange={handleOnChange}
-          className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
+          className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
         />
 
         {/* Prices */}
         <div className="flex gap-4">
-          <div className="flex-1">
+          <div className="flex-1  max-md:text-[12px] max-md:mb-1">
             <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
               Full Plate Price
             </label>
@@ -256,11 +257,11 @@ export default function DishForm() {
               name="fullPlate"
               placeholder="₹ Full price"
               onChange={handleOnChange}
-              className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
+              className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
               required
             />
           </div>
-          <div className="flex-1">
+          <div className="flex-1  max-md:text-[12px] max-md:mb-1">
             <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
               Half Plate Price
             </label>
@@ -269,20 +270,20 @@ export default function DishForm() {
               name="halfPlate"
               onChange={handleOnChange}
               placeholder="₹ Half price"
-              className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
+              className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
             />
           </div>
         </div>
         {/* Available? */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
+        <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
           Available
         </label>
         <div className="flex gap-4 mb-4">
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2 max-md:text-[10px]">
             <input type="radio" name="available" value="Available" onChange={handleOnChange} defaultChecked />
             Available
           </label>
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2 max-md:text-[10px]">
             <input type="radio" name="available" value="Un-available" onChange={handleOnChange} />
             Un-available
           </label>

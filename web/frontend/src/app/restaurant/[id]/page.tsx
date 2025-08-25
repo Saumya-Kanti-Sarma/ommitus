@@ -137,12 +137,12 @@ const Page = () => {
   }
 
   return (
-    <div className="min-h-[calc(100dvh-70px)] max-md:min-h-[calc(100dvh-60px)] flex items-center justify-center bg-[var(--light-gray)] p-6 ">
-      <form className="w-full max-w-5xl bg-[var(--white)] rounded-2xl shadow-lg p-8 space-y-6" onSubmit={handleFormSubmit}>
-        <h1 className="text-2xl font-bold text-center text-[var(--blue)] mb-4">
+    <div className="min-h-[calc(100dvh-70px)] max-md:min-h-[calc(100dvh-60px)] flex items-center justify-center bg-[var(--white)] p-6 max-md:p-2">
+      <form className="w-full max-w-5xl bg-[var(--white)] rounded-2xl shadow-lg p-8 space-y-6 max-md:p-4" onSubmit={handleFormSubmit}>
+        <h1 className="text-2xl font-bold text-center text-[var(--blue)] mb-4 max-md:text-[16px]">
           {restaurantName} Details
         </h1>
-        <p className="text-center opacity-50">Joined Ommitus at: {info.createdAt?.slice(0, 16)}</p>
+        <p className="text-center opacity-50 max-md:text-[12px]">Joined Ommitus at: {info.createdAt?.slice(0, 16)}</p>
 
         {/* Restaurant Name (readonly) */}
         <div>
