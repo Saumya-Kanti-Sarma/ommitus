@@ -1,0 +1,457 @@
+[
+  {
+    "dishName": "Aloo Frankie",
+    "category": "rolls",
+    "veg": true,
+    "description": "Spiced potato filling rolled in a thin bread with chutneys and seasonings.",
+    "fullPlate": 100,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Aloo%20Frankie.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Butter Chicken",
+    "category": "curry",
+    "veg": false,
+    "description": "Tender chicken pieces in a smooth, creamy tomato-based gravy with butter and fenugreek.",
+    "fullPlate": 320,
+    "halfPlate": 180,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Butter%20Chicken.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chana Masala",
+    "category": "curry",
+    "veg": true,
+    "description": "Chickpeas cooked in a thick, tangy, and flavorful onion-tomato gravy.",
+    "fullPlate": 200,
+    "halfPlate": 120,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chana%20Masala.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chicken Kathi Roll",
+    "category": "rolls",
+    "veg": false,
+    "description": "Flaky paratha wrapped around juicy, grilled chicken chunks with onions, chutney, and spices.",
+    "fullPlate": 180,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chicken%20Kathi%20Roll.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chicken Manchurian",
+    "category": "Chinese",
+    "veg": false,
+    "description": "Crispy chicken balls tossed in a spicy, tangy, and slightly sweet ginger-garlic sauce.",
+    "fullPlate": 280,
+    "halfPlate": 160,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chicken%20Manchurian.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chicken Tikka",
+    "category": "starters",
+    "veg": false,
+    "description": "Boneless chicken chunks marinated in yogurt and spices, grilled to perfection in a tandoor.",
+    "fullPlate": 300,
+    "halfPlate": 170,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chicken%20Tikka.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chicken Tikka Biryani",
+    "category": "biriyani",
+    "veg": false,
+    "description": "Succulent pieces of tandoori chicken tikka layered with flavorful biryani rice.",
+    "fullPlate": 320,
+    "halfPlate": 180,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chicken%20Tikka%20Biryani.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chili Chicken",
+    "category": "Chinese",
+    "veg": false,
+    "description": "A fiery Indo-Chinese dish of sautéed chicken with green chilies, onions, and soy sauce.",
+    "fullPlate": 270,
+    "halfPlate": 155,
+    "available": false,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chili%20Chicken.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Chilli Prawns",
+    "category": "starters",
+    "veg": false,
+    "description": "Juicy prawns sautéed with bell peppers, onions, and a spicy schezwan-style sauce.",
+    "fullPlate": 340,
+    "halfPlate": 190,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Chilli%20Prawns.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Dal Makhani",
+    "category": "curry",
+    "veg": true,
+    "description": "Black lentils and kidney beans slow-cooked with butter and cream for a rich, smoky flavor.",
+    "fullPlate": 240,
+    "halfPlate": 140,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/dal-makhani-makhni-north-indian-260nw-2112038774.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Egg Biryani",
+    "category": "biriyani",
+    "veg": false,
+    "description": "A classic preparation with perfectly boiled eggs and long-grained rice infused with biryani masala.",
+    "fullPlate": 250,
+    "halfPlate": 145,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Egg%20Biryani.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Egg Roll",
+    "category": "rolls",
+    "veg": false,
+    "description": "A classic street food - an omelette wrapped around a paratha with sliced onions and sauces.",
+    "fullPlate": 110,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Egg%20Roll.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Filter Coffee",
+    "category": "beverages",
+    "veg": true,
+    "description": "A South Indian specialty, dark decoction coffee mixed with hot milk and sugar.",
+    "fullPlate": 60,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Filter%20Coffee.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Fish Curry",
+    "category": "curry",
+    "veg": false,
+    "description": "Chunks of fish simmered in a spicy and tangy coconut-based gravy from Goa.",
+    "fullPlate": 280,
+    "halfPlate": 160,
+    "available": false,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Fish%20Curry.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "French Fries",
+    "category": "starters",
+    "veg": true,
+    "description": "Golden brown, crispy potato fries served with ketchup and mayo.",
+    "fullPlate": 150,
+    "halfPlate": 90,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/French%20Fries.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Fresh Lime Soda",
+    "category": "drinks",
+    "veg": true,
+    "description": "Sparkling soda water mixed with fresh lime juice. Available sweet or salty.",
+    "fullPlate": 65,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Fresh%20Lime%20Soda.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Gobi Manchurian",
+    "category": "Chinese",
+    "veg": true,
+    "description": "Crispy fried cauliflower florets coated in a classic Manchurian sauce.",
+    "fullPlate": 240,
+    "halfPlate": 140,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Gobi%20Manchurian.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Green Tea",
+    "category": "beverages",
+    "veg": true,
+    "description": "A light and healthy infusion of green tea leaves. Served with honey on request.",
+    "fullPlate": 40,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Green%20Tea.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Hara Bhara Kabab",
+    "category": "starters",
+    "veg": true,
+    "description": "Green kebabs made from spinach, peas, and potatoes, coated with breadcrumbs and grilled.",
+    "fullPlate": 220,
+    "halfPlate": 130,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Hara%20Bhara%20Kabab.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Hot Chocolate",
+    "category": "beverages",
+    "veg": true,
+    "description": "A rich, creamy, and decadent chocolate drink topped with marshmallows.",
+    "fullPlate": 120,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Hot%20Chocolate.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Hyderabadi Dum Biryani",
+    "category": "biriyani",
+    "veg": false,
+    "description": "Aromatic basmati rice layered with marinated mutton, slow-cooked 'dum' style with saffron and spices.",
+    "fullPlate": 350,
+    "halfPlate": 190,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Hyderabadi%20Dum%20Biryani.jpg",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Kadak Adrak Chai",
+    "category": "beverages",
+    "veg": true,
+    "description": "An extra-strong tea with a powerful punch of fresh ginger.",
+    "fullPlate": 60,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Kadak%20Adrak%20Chai.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Mango Shake",
+    "category": "drinks",
+    "veg": true,
+    "description": "A rich and creamy shake made with ripe mango pulp and ice cream.",
+    "fullPlate": 150,
+    "halfPlate": 90,
+    "available": false,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Mango%20Shake.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Masala Chaas",
+    "category": "drinks",
+    "veg": true,
+    "description": "A refreshing spiced buttermilk drink with hints of cumin, mint, and ginger.",
+    "fullPlate": 70,
+    "halfPlate": 45,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Masala%20Chaas.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Masala Chai",
+    "category": "beverages",
+    "veg": true,
+    "description": "Strong Indian tea brewed with milk and a blend of warming spices like cardamom and ginger.",
+    "fullPlate": 50,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Masala%20Chai.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Mutton Keema Roll",
+    "category": "rolls",
+    "veg": false,
+    "description": "A hearty roll stuffed with spicy and flavorful minced mutton keema.",
+    "fullPlate": 190,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Mutton%20Keema%20Roll.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Paneer 65",
+    "category": "starters",
+    "veg": true,
+    "description": "Deep-fried, crispy cubes of paneer tossed in a signature spicy red sauce.",
+    "fullPlate": 260,
+    "halfPlate": 150,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Paneer%2065.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Paneer Biryani",
+    "category": "biriyani",
+    "veg": true,
+    "description": "Soft cubes of paneer (cottage cheese) cooked with spicy, saffron-infused rice.",
+    "fullPlate": 280,
+    "halfPlate": 160,
+    "available": false,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Paneer%20Biryani.jpg",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Paneer Tikka Roll",
+    "category": "rolls",
+    "veg": true,
+    "description": "A flavorful roll filled with smoky, grilled paneer tikka, onions, and mint mayo.",
+    "fullPlate": 160,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Paneer%20Tikka%20Roll.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Palak Paneer",
+    "category": "curry",
+    "veg": true,
+    "description": "Soft paneer cubes in a mildly spiced, creamy purée of spinach and spices.",
+    "fullPlate": 260,
+    "halfPlate": 150,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Palak%20Paneer.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Rose Sherbet",
+    "category": "drinks",
+    "veg": true,
+    "description": "A traditional, fragrant drink made with rose syrup and chilled water.",
+    "fullPlate": 80,
+    "halfPlate": null,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Rose%20Sherbet.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Sweet Lassi",
+    "category": "drinks",
+    "veg": true,
+    "description": "A classic yogurt-based drink, blended until smooth and sweetened to perfection.",
+    "fullPlate": 90,
+    "halfPlate": 60,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Sweet%20Lassi.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Vegetable Biryani",
+    "category": "biriyani",
+    "veg": true,
+    "description": "Fragrant rice cooked with a mix of fresh vegetables, whole spices, and herbs. Served with raita.",
+    "fullPlate": 220,
+    "halfPlate": 130,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Vegetable%20Biryani.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Vegetable Hakka Noodles",
+    "category": "Chinese",
+    "veg": true,
+    "description": "Stir-fried noodles tossed with fresh vegetables and savory soy-based sauces.",
+    "fullPlate": 200,
+    "halfPlate": 120,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Vegetable%20Hakka%20Noodles.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  },
+  {
+    "dishName": "Veg Fried Rice",
+    "category": "Chinese",
+    "veg": true,
+    "description": "Steamed rice stir-fried with finely chopped vegetables, spring onions, and light soy sauce.",
+    "fullPlate": 180,
+    "halfPlate": 100,
+    "available": true,
+    "image": "https://azjgnoxfyygbnquzecyw.supabase.co/storage/v1/object/public/ommitus/menu/Veg%20Fried%20Rice.webp",
+    "restaurantId": {
+      "$oid": "68a71b965d3b069d21ee0a40"
+    }
+  }
+]
