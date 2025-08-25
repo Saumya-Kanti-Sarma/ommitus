@@ -24,10 +24,12 @@ const menuSchema = new mongoose.Schema({
   fullPlate: {
     type: Number,
     trim: true,
+    required: true,
   },
   halfPlate: {
     type: Number,
     trim: true,
+    default: null,
   },
   available: {
     type: Boolean,
