@@ -73,7 +73,14 @@ router.get("/all", async (req: Request, res: Response) => {
     };
 
     if (category) {
-      const data = await menuData.find({ restaurantId: id, available: true, category: category }, { description: 0, restaurantId: 0, __v: 0 }).limit(Number(limit)).skip((Number(page) - 1) * Number(limit)).sort({ createdAt: -1 });
+      const data = await menuData.find({ restaurantId: id, category: category }, { description: 0, restaurantId: 0, __v: 0 }).limit(Number(limit)).skip((Number(page) - 1) * Number(limit)).sort({ createdAt: -1 });
+      return res.status(200).send({
+        data
+      });
+    };
+
+    if (available && category) {
+      const data = await menuData.find({ restaurantId: id, available: available, category: category }, { description: 0, restaurantId: 0, __v: 0 }).limit(Number(limit)).skip((Number(page) - 1) * Number(limit)).sort({ createdAt: -1 });
       return res.status(200).send({
         data
       });
@@ -88,7 +95,7 @@ router.get("/all", async (req: Request, res: Response) => {
       message: error instanceof Error ? error.message : "unknown error occured"
     });
   }
-})
+});
 
 // Read one menu items
 router.get("/:menuID", async (req: Request, res: Response) => {
