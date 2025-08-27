@@ -60,6 +60,8 @@ const Page = () => {
 
       if (newDishes.length === 0) {
         setHasMore(false);
+        return "end of dishes";
+
       } else {
         setAllDish(prev => [...prev, ...newDishes]);
         //console.log(newDishes);
@@ -99,11 +101,67 @@ const Page = () => {
   const handleVisibleDropdown = () => setVisibleDropdown(prev => !prev);
 
   // 4. function to handle input change value (as the user starts typing, dish automatically starts to appear)
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    const { value } = e.target;
+  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim().toLowerCase();
 
-  }
+    if (value === "") {
+      // Reset to show everything again
+      setFilterDishes(allDish);
+      return;
+    }
+
+    setLoading(true);
+    let combinedResults: Dish[] = [];
+    let searchPage = 1;
+    let found = false;
+    let keepFetching = true;
+
+    try {
+      while (keepFetching) {
+        const { data } = await axios.get(
+          `${API_URL}/api/menu/all?page=${searchPage}&limit=12`,
+          {
+            headers: {
+              xkc: API_KEY!,
+              xrid: restaurantId!,
+            },
+          }
+        );
+
+        const newDishes: Dish[] = data.data;
+        if (newDishes.length === 0) {
+          keepFetching = false; // no more dishes
+          break;
+        }
+
+        combinedResults = [...combinedResults, ...newDishes];
+
+        const filtered = combinedResults.filter(dish =>
+          dish.dishName.toLowerCase().includes(value)
+        );
+
+        if (filtered.length > 0) {
+          setFilterDishes(filtered);
+          found = true;
+          keepFetching = false; // stop once we found matches
+        } else {
+          searchPage++;
+        }
+      }
+
+      if (!found) {
+        setFilterDishes([]); // nothing matched
+        toast.error("No dishes found");
+      }
+    } catch (error) {
+      toast.error("Failed while searching");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
 
   // renders
   // 1. fetch initial dishes and all categories
@@ -134,7 +192,7 @@ const Page = () => {
     return () => {
       if (lastDish) observer.unobserve(lastDish);
     };
-  }, [allDish, loading, hasMore]);
+  }, [filterDishes, loading, hasMore]);
 
   // 3. Fetch when page increments
   useEffect(() => {
@@ -247,17 +305,20 @@ const Page = () => {
                   className="hidden max-lg:block bg-[var(--dark-blue)] font-black text-white p-3 rounded-[8px]  cursor-pointer transition duration-180 opacity-90 hover:scale-110 hover:opacity-100 hover:rounded-xl text-nowrap mr-2">
                   {"<<"}
                 </button>
-                <input type="text" name="search-box" id="menu-search-box" placeholder="Search Dish name" className="p-2 w-full m-4 mx-0 border-1 border-[var(--dark-blue)] border-solid rounded-2xl" />
+                <input
+                  onChange={handleInputChange}
+                  type="text" name="search-box" id="menu-search-box" placeholder="Search Dish name"
+                  className="p-2 w-full m-4 mx-0 border-1 border-[var(--dark-blue)] border-solid rounded-2xl" />
               </div>
 
               {/*  Menu section*/}
               <div className="flex justify-center w-[97%] max-w-[1200px] mx-[auto] my-0">
                 <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-full">
                   {/* Menu */}
-                  {allDish.map((dish, idx) => (
+                  {filterDishes.map((dish, idx) => (
                     <Link
                       key={dish._id}
-                      id={idx === allDish.length - 1 ? "last-dish" : undefined} // attach observer to last dish
+                      id={idx === filterDishes.length - 1 ? "last-dish" : undefined} // attach observer to last dish
                       href="#"
                       className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200 max-w-[320px] max-md:w-[300px] max-md:mx-auto max-md:my-0 hover:scale-101"
                     >
