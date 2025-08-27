@@ -28,7 +28,11 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Page = () => {
+  const restaurantId = Cookies.get("restaurantId");// Cookies
+  const [initalLoad, setInitialLoad] = useState(false); // this stores the initaal loading state, when menu and category is loaded it becomes false; (5th useEffect)
+
   const [allDish, setAllDish] = useState<Dish[]>([]); // this will store arrays of Dish object;
+  const [filterDishes, setFilterDishes] = useState<Dish[]>([]); // this will store arrays of Dish object from allDish list with filter property;
   const [categories, setCategories] = useState<string[]>(["All"]); // this will store all categories of restaurant
   const [activeBtnClass, setActiveBtnClass] = useState(0); // this will toggle the styles for active category btn
 
@@ -38,11 +42,8 @@ const Page = () => {
   const [loading, setLoading] = useState(false); // skeleton trigger
   const [hasMore, setHasMore] = useState(true); // stop when no more dishes
 
-  // Cookies
-  const restaurantId = Cookies.get("restaurantId");
-
-  // functions
-  // 1.
+  // All Functions
+  // 1.function to fetch all dishes from server
   const fetchAllDish = async (page = 1, limit = 12) => {
     try {
       setLoading(true);
@@ -61,6 +62,8 @@ const Page = () => {
         setHasMore(false);
       } else {
         setAllDish(prev => [...prev, ...newDishes]);
+        //console.log(newDishes);
+
       }
     } catch (error) {
       toast.error("Failed to fetch dishes");
@@ -71,7 +74,7 @@ const Page = () => {
     }
   };
 
-  // 2. 
+  // 2. function to fetch all Categories of the restaurant from server
   const fetchCategories = async () => {
     try {
       const res = await axios.get(
@@ -92,11 +95,17 @@ const Page = () => {
     }
   };
 
-  // 3. 
+  // 3. function to toggle visibility of sidebar for max-lg
   const handleVisibleDropdown = () => setVisibleDropdown(prev => !prev);
 
-  // renders
+  // 4. function to handle input change value (as the user starts typing, dish automatically starts to appear)
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.target;
 
+  }
+
+  // renders
   // 1. fetch initial dishes and all categories
   useEffect(() => {
     if (!restaurantId) return;
@@ -108,8 +117,7 @@ const Page = () => {
 
   // 2. infinite scroll observer
   useEffect(() => {
-    console.log("scrolling...");
-
+    //console.log("scrolling...");
     if (!hasMore || loading) return;
     const observer = new IntersectionObserver(
       entries => {
@@ -135,117 +143,197 @@ const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+
+  //5. setInital loading false when menu and categories are loaded
+  useEffect(() => {
+    if (allDish.length > 0 && categories.length > 0) {
+      setFilterDishes(allDish);
+      setInitialLoad(true);
+    }
+  }, [allDish]);
+
   return (
     <>
       <main className={`flex w-full h-[calc(100vh-70px)] overflow-hidden items-start relative max-md:h-[calc(100vh-60px)]`}>
-
+        {/* All categories and filters side bar */}
         <aside
           className={`w-[300px] h-[calc(100dvh-70px)] overflow-y-auto bg-[var(--dark-blue)] text-white p-5 shadow-md transition-all duration-300 ease-in-out z-50 max-lg:absolute max-lg:top-0 
           ${visibleDropdown ? "max-lg:left-0" : "max-lg:-left-full"} max-md:h-[calc(100dvh-60px)]`}>
-          <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
-            All Categories
-          </h1>
-          <ul className="space-y-3">
-            {categories.map((item, index) => (
-              <li key={index}>
-                <button
-                  className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${index === activeBtnClass
-                    ? "bg-[var(--green)] text-white shadow-md"
-                    : "hover:bg-[var(--blue)] hover:text-white"
-                    }`}
-                  onClick={() => setActiveBtnClass(index)}
-                >
-                  {item}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <br />
-          <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
-            Filters
-          </h1>
-          <ul className="space-y-3">
-            {["Available Dishes", "Unavailable Dishes"].map((item, index) => (
-              <li key={index}>
-                <button
-                  className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${categories.length + 1 + index === activeBtnClass
-                    ? "bg-[var(--green)] text-white shadow-md"
-                    : "hover:bg-[var(--blue)] hover:text-white"
-                    }`}
-                  onClick={() => setActiveBtnClass(categories.length + 1 + index)}
-                >
-                  {item}
-                </button>
-              </li>
-            ))}
-          </ul>
+
+          {initalLoad ?
+            <>
+              <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
+                All Categories
+              </h1>
+              <ul className="space-y-3">
+                {categories.map((item, index) => (
+                  <li key={index}>
+                    <button
+                      className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${index === activeBtnClass
+                        ? "bg-[var(--green)] text-white shadow-md"
+                        : "hover:bg-[var(--blue)] hover:text-white"
+                        }`}
+                      onClick={() => setActiveBtnClass(index)}
+                    >
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <br />
+              <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
+                Filters
+              </h1>
+              <ul className="space-y-3">
+                {["Available Dishes", "Unavailable Dishes"].map((item, index) => (
+                  <li key={index}>
+                    <button
+                      className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${categories.length + 1 + index === activeBtnClass
+                        ? "bg-[var(--green)] text-white shadow-md"
+                        : "hover:bg-[var(--blue)] hover:text-white"
+                        }`}
+                      onClick={() => setActiveBtnClass(categories.length + 1 + index)}
+                    >
+                      {item}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </> :
+            <>
+              <div className=" h-full opacity-70 flex flex-col gap-3 animate-pulse">
+                {/* Categories heading */}
+                <div className="h-6 w-40 bg-[var(--light-gray)] rounded mb-6" />
+
+                {/* Categories list */}
+                <ul className="space-y-3">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <li key={i}>
+                      <div className="h-8 w-full bg-[var(--light-gray)] rounded-lg" />
+                    </li>
+                  ))}
+                </ul>
+
+                <br />
+                <br />
+
+                {/* Filters heading */}
+                <div className="h-6 w-32 bg-[var(--light-gray)] rounded mb-3" />
+
+                {/* Filters list */}
+                <ul className="space-y-3">
+                  {Array.from({ length: 2 }).map((_, i) => (
+                    <li key={i}>
+                      <div className="h-8 w-full bg-[var(--light-gray)] rounded-lg" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          }
+
         </aside>
 
+        {/* Main section */}
         <section className={`h-full  w-full overflow-y-auto scrollbar ${visibleDropdown ? "blur-xs" : "blur-none"}`} onClick={() => setVisibleDropdown(prev => prev == true ? false : false)}>
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="sticky top-0 z-50 bg-white/10 backdrop-blur-xs flex items-center w-[97%] max-w-[1200px] mx-auto my-0  overflow-hidden">
-            <button
-              onClick={handleVisibleDropdown}
-              className="hidden max-lg:block bg-[var(--dark-blue)] font-black text-white p-3 rounded-[8px]  cursor-pointer transition duration-180 opacity-90 hover:scale-110 hover:opacity-100 hover:rounded-xl text-nowrap mr-2">
-              {"<<"}
-            </button>
-            <input type="text" name="search-box" id="menu-search-box" placeholder="Search Dish name" className="p-2 w-full m-4 mx-0 border-1 border-[var(--dark-blue)] border-solid rounded-2xl" />
-          </div>
+          {initalLoad ?
+            <>
+              {/* Search box */}
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="sticky top-0 z-50 bg-white/10 backdrop-blur-xs flex items-center w-[97%] max-w-[1200px] mx-auto my-0  overflow-hidden">
+                <button
+                  onClick={handleVisibleDropdown}
+                  className="hidden max-lg:block bg-[var(--dark-blue)] font-black text-white p-3 rounded-[8px]  cursor-pointer transition duration-180 opacity-90 hover:scale-110 hover:opacity-100 hover:rounded-xl text-nowrap mr-2">
+                  {"<<"}
+                </button>
+                <input type="text" name="search-box" id="menu-search-box" placeholder="Search Dish name" className="p-2 w-full m-4 mx-0 border-1 border-[var(--dark-blue)] border-solid rounded-2xl" />
+              </div>
 
-          <div className="flex justify-center w-[97%] max-w-[1200px] mx-[auto] my-0">
-            <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-full">
-              {allDish.map((dish, idx) => (
-                <Link
-                  key={dish._id}
-                  id={idx === allDish.length - 1 ? "last-dish" : undefined} // attach observer to last dish
-                  href="#"
-                  className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200 max-w-[320px] max-md:w-[300px] max-md:mx-auto max-md:my-0 hover:scale-101"
-                >
-                  <img src={dish.image[0]} alt={dish.dishName} className="w-full h-40 object-cover" />
-                  <div className="p-4 flex flex-col gap-2">
-                    <div className="flex justify-between items-center">
-                      <p className="text-lg font-semibold text-[var(--black)]">{dish.dishName}</p>
-                      <span
-                        className={`w-3 h-3 rounded-full ${dish.veg ? "bg-[var(--green)]" : "bg-[var(--red)]"}`}
-                      />
-                    </div>
-                    <p
-                      className={`text-sm font-medium ${dish.available ? "text-[var(--green)]" : "text-[var(--red)]"}`}
+              {/*  Menu section*/}
+              <div className="flex justify-center w-[97%] max-w-[1200px] mx-[auto] my-0">
+                <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-full">
+                  {/* Menu */}
+                  {allDish.map((dish, idx) => (
+                    <Link
+                      key={dish._id}
+                      id={idx === allDish.length - 1 ? "last-dish" : undefined} // attach observer to last dish
+                      href="#"
+                      className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200 max-w-[320px] max-md:w-[300px] max-md:mx-auto max-md:my-0 hover:scale-101"
                     >
-                      {dish.available ? "Available" : "Unavailable"}
-                    </p>
-                    <div className="flex gap-4 text-sm text-[var(--dark-blue)]">
-                      {dish.fullPlate && <p className="font-medium">Full: ₹{dish.fullPlate}</p>}
-                      {dish.halfPlate && <p className="font-medium">Half: ₹{dish.halfPlate}</p>}
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                      <img src={dish.image[0]} alt={dish.dishName} className="w-full h-40 object-cover" />
+                      <div className="p-4 flex flex-col gap-2">
+                        <div className="flex justify-between items-center">
+                          <p className="text-lg font-semibold text-[var(--black)]">{dish.dishName}</p>
+                          <span
+                            className={`w-3 h-3 rounded-full ${dish.veg ? "bg-[var(--green)]" : "bg-[var(--red)]"}`}
+                          />
+                        </div>
+                        <p
+                          className={`text-sm font-medium ${dish.available ? "text-[var(--green)]" : "text-[var(--red)]"}`}
+                        >
+                          {dish.available ? "Available" : "Unavailable"}
+                        </p>
+                        <div className="flex gap-4 text-sm text-[var(--dark-blue)]">
+                          {dish.fullPlate && <p className="font-medium">Full: ₹{dish.fullPlate}</p>}
+                          {dish.halfPlate && <p className="font-medium">Half: ₹{dish.halfPlate}</p>}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
 
-              {/* Skeletons while loading */}
-              {loading &&
-                Array.from({ length: 7 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden max-w-[320px] w-full animate-pulse max-md:mx-auto max-md:my-0"
-                  >
-                    <div className="w-full h-40 bg-[var(--light-gray)]" />
-                    <div className="p-4 flex flex-col gap-3">
-                      <div className="flex justify-between items-center">
-                        <div className="h-4 w-24 bg-[var(--light-gray)] rounded" />
-                        <div className="w-3 h-3 bg-[var(--light-gray)] rounded-full" />
+                  {/* Skeletons while loading */}
+                  {loading &&
+                    Array.from({ length: 7 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden max-w-[320px] w-full animate-pulse max-md:mx-auto max-md:my-0"
+                      >
+                        <div className="w-full h-40 bg-[var(--light-gray)]" />
+                        <div className="p-4 flex flex-col gap-3">
+                          <div className="flex justify-between items-center">
+                            <div className="h-4 w-24 bg-[var(--light-gray)] rounded" />
+                            <div className="w-3 h-3 bg-[var(--light-gray)] rounded-full" />
+                          </div>
+                          <div className="h-3 w-20 bg-[var(--light-gray)] rounded" />
+                          <div className="flex gap-4">
+                            <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
+                            <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
+                          </div>
+                        </div>
                       </div>
-                      <div className="h-3 w-20 bg-[var(--light-gray)] rounded" />
-                      <div className="flex gap-4">
-                        <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
-                        <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
+                    ))}
+                </div>
+              </div>
+            </> :
+            <>
+              <div className="w-[97%] max-w-[1080px] h-15 mx-auto my-5 bg-[var(--light-gray)] rounded-2xl animate-pulse"></div>
+              <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-[97%] max-w-[1080px] mx-auto">
+                {
+                  Array.from({ length: 14 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden max-w-[320px] w-full animate-pulse max-md:mx-auto max-md:my-0"
+                    >
+                      <div className="w-full h-40 bg-[var(--light-gray)]" />
+                      <div className="p-4 flex flex-col gap-3">
+                        <div className="flex justify-between items-center">
+                          <div className="h-4 w-24 bg-[var(--light-gray)] rounded" />
+                          <div className="w-3 h-3 bg-[var(--light-gray)] rounded-full" />
+                        </div>
+                        <div className="h-3 w-20 bg-[var(--light-gray)] rounded" />
+                        <div className="flex gap-4">
+                          <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
+                          <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-            </div>
-          </div>
+                  ))
+                }
+              </div>
+
+            </>
+          }
         </section>
       </main>
 
