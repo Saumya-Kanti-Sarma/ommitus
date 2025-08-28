@@ -160,6 +160,21 @@ const Page = () => {
     }
   };
 
+  // 5. function to filter dishes according to category
+  const handleCategoryFilter = (category: string) => {
+    setLoading(true);
+
+    if (category === "All") {
+      setFilterDishes(allDish); // show everything
+    } else {
+      const filtered = allDish.filter(dish => dish.category.toLowerCase() === category.toLowerCase().trim());
+      setFilterDishes(filtered);
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 400);
+  };
 
 
 
@@ -231,7 +246,7 @@ const Page = () => {
                         ? "bg-[var(--green)] text-white shadow-md"
                         : "hover:bg-[var(--blue)] hover:text-white"
                         }`}
-                      onClick={() => setActiveBtnClass(index)}
+                      onClick={() => { setActiveBtnClass(index); handleCategoryFilter(item) }}
                     >
                       {item}
                     </button>
@@ -333,7 +348,7 @@ const Page = () => {
                         <p
                           className={`text-sm font-medium ${dish.available ? "text-[var(--green)]" : "text-[var(--red)]"}`}
                         >
-                          {dish.available ? "Available" : "Unavailable"}
+                          {dish.available ? "Available" : "Unavailable"} | {dish.category}
                         </p>
                         <div className="flex gap-4 text-sm text-[var(--dark-blue)]">
                           {dish.fullPlate && <p className="font-medium">Full: ₹{dish.fullPlate}</p>}
