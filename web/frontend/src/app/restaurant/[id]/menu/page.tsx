@@ -176,6 +176,18 @@ const Page = () => {
     }, 400);
   };
 
+  // 5. function to filter dishes according to availability
+  const handleAvailableFilter = (available: boolean) => {
+    setLoading(true);
+
+    const filtered = allDish.filter(dish => dish.available === available);
+    setFilterDishes(filtered);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 400);
+  };
+
 
 
   // renders
@@ -265,7 +277,7 @@ const Page = () => {
                         ? "bg-[var(--green)] text-white shadow-md"
                         : "hover:bg-[var(--blue)] hover:text-white"
                         }`}
-                      onClick={() => setActiveBtnClass(categories.length + 1 + index)}
+                      onClick={() => { setActiveBtnClass(categories.length + 1 + index); handleAvailableFilter(index == 0 ? true : false) }}
                     >
                       {item}
                     </button>
@@ -334,7 +346,7 @@ const Page = () => {
                     <Link
                       key={dish._id}
                       id={idx === filterDishes.length - 1 ? "last-dish" : undefined} // attach observer to last dish
-                      href="#"
+                      href={`/restaurant/${restaurantId}/menu/${dish._id}`}
                       className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200 max-w-[320px] max-md:w-[300px] max-md:mx-auto max-md:my-0 hover:scale-101"
                     >
                       <img src={dish.image[0]} alt={dish.dishName} className="w-full h-40 object-cover" />
