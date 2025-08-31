@@ -29,7 +29,7 @@ const menuSchema = new mongoose.Schema({
   halfPlate: {
     type: Number,
     trim: true,
-    default: null,
+    default: 0,
   },
   available: {
     type: Boolean,
