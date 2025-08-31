@@ -12,14 +12,16 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.56.0",
     "axios": "^1.11.0",
+    "html-to-image": "^1.11.13",
     "js-cookie": "^3.0.5",
     "js-cookies": "^1.0.4",
-    "next": "15.4.1",
+    "next": "^15.5.2",
     "next-cli-toolkit": "^1.0.12",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.5.2",
-    "react-otp-input": "^3.1.1"
+    "react-otp-input": "^3.1.1",
+    "react-qr-code": "^2.0.18"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
