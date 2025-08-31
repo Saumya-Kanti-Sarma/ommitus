@@ -58,11 +58,6 @@ export default function Navbar() {
             Get QR
           </Link>
         </li>
-        <li>
-          <Link href={`/restaurant/${restaurantId}/analytics`} className={linkClass(`/restaurant/${restaurantId}/analytics`)}>
-            Analytics
-          </Link>
-        </li>
       </ul>
 
       {/* Mobile Menu Button */}
@@ -108,13 +103,6 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
           >
             Get QR
-          </Link>
-          <Link
-            href={`/restaurant/${restaurantId}/analytics`}
-            className={`${linkClass(`/restaurant/${restaurantId}/analytics`)} p-4`}
-            onClick={() => setMenuOpen(false)}
-          >
-            Analytics
           </Link>
         </div>
       </div>
