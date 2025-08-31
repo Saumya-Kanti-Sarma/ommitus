@@ -17,7 +17,18 @@ export default function DishDetails() {
   const [preview, setPreview] = useState<string>(""); // this will store the url of image 
   const [categories, setCategories] = useState<string[]>([]);// this will store the list of all categories fetched from server
 
-  const [formData, setFromData] = useState({
+  interface formDataTypes {
+    dishName: string,
+    image: string,
+    category: string,
+    veg: boolean,
+    description: string,
+    fullPlate: string,
+    halfPlate: string | null,
+    available: boolean,
+    restaurantId: string,
+  }
+  const [formData, setFromData] = useState<formDataTypes>({
     dishName: "",
     image: "",
     category: "",
@@ -133,6 +144,7 @@ export default function DishDetails() {
       setFromData(prev => ({ ...prev, available: availablevalue }))
       return;
     };
+
     setFromData(prev => ({
       ...prev,
       [name]: value

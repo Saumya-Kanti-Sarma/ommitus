@@ -363,8 +363,7 @@ const Page = () => {
                           {dish?.available ? "Available" : "Unavailable"} | {dish?.category}
                         </p>
                         <div className="flex gap-4 text-sm text-[var(--dark-blue)]">
-                          {dish?.fullPlate && <p className="font-medium">Full: ₹{dish?.fullPlate}</p>}
-                          {dish?.halfPlate && <p className="font-medium">Half: ₹{dish?.halfPlate}</p>}
+                          {dish?.fullPlate && <p className="font-medium">₹{dish?.fullPlate}{dish?.halfPlate == 0 ? "" : ` / ₹${dish.halfPlate}`}</p>}
                         </div>
                       </div>
                     </Link>
