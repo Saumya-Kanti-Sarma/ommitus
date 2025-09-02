@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Link from "next/link";
+import { Input } from "@/components/UI/Restaurant/Input/Input";
 
 export default function Login() {
   const router = useRouter();
@@ -155,92 +156,53 @@ export default function Login() {
           onSubmit={handleSubmit}
         >
           {/* Restaurant Name */}
-          <div>
-            <label className="block mb-2 font-semibold text-[var(--white)]">
-              Name of restaurant
-            </label>
-            <input
-              type="text"
-              name="restaurantName"
-              placeholder="Enter the name of your restaurant"
-              className="w-full border border-[var(--gray)] p-2 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
-              ref={resRef}
-              onKeyDown={(e) => handleKeyDown(ownerNameRef, actionBtndRef, e)}
-              onChange={handleOnChange}
-            />
-          </div>
-
+          <Input
+            type="text"
+            label="Name of Restaurant"
+            name="restaurantName"
+            placeholder="Enter the name of your restaurant"
+            ref={resRef}
+            onKeyDown={(e) => handleKeyDown(ownerNameRef, actionBtndRef, e)}
+            onChange={handleOnChange}
+          />
           {/* Owner Name */}
           {!isLogin && (
-            <div>
-              <label className="block mb-2 font-semibold text-[var(--white)]">
-                Owner Name
-              </label>
-              <input
-                type="text"
-                name="ownerName"
-                ref={ownerNameRef}
-                placeholder="Enter the name of restaurant owner"
-                className="w-full border border-[var(--gray)] p-2 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
-                onKeyDown={(e) => handleKeyDown(emailRef, resRef, e)}
-                onChange={handleOnChange}
-              />
-            </div>
+            <Input
+              type="text"
+              label="Owner Name"
+              name="ownerName"
+              ref={ownerNameRef}
+              placeholder="Enter the name of restaurant owner"
+              onKeyDown={(e) => handleKeyDown(emailRef, resRef, e)}
+              onChange={handleOnChange}
+            />
           )}
 
           {/* Email */}
           {!isLogin && (
-            <div>
-              <label className="block mb-2 font-semibold text-[var(--white)]">
-                Email
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  name="email"
-                  ref={emailRef}
-                  placeholder="Enter the email id"
-                  className="flex-1 border border-[var(--gray)] p-2 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
-                  onKeyDown={(e) => handleKeyDown(passwordRef, ownerNameRef, e)}
-                  onChange={handleOnChange}
-                />
-              </div>
-            </div>
+            <Input
+              type="email"
+              name="email"
+              ref={emailRef}
+              placeholder="Enter the email id"
+              label="Email"
+              onKeyDown={(e) => handleKeyDown(passwordRef, ownerNameRef, e)}
+              onChange={handleOnChange}
+            />
           )}
 
           {/* Password */}
-          <div>
-            <label className="block mb-2 font-semibold text-[var(--white)]">
-              Password
-            </label>
-            <div className="flex items-center border border-[var(--gray)] rounded-md bg-white">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                ref={passwordRef}
-                placeholder="•••••"
-                className="flex-1 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-[var(--green)]"
-                onKeyDown={(e) => handleKeyDown(actionBtndRef, emailRef, e)}
-                onChange={handleOnChange}
-              />
-              <button
-                type="button"
-                className="p-2 cursor-pointer"
-                onClick={handleTogglePassword}
-              >
-                <img
-                  src={
-                    showPassword
-                      ? "/icons/eye.svg"
-                      : "/icons/close-eye.svg"
-                  }
-                  alt="password-icon"
-                  className="w-5 h-5"
-                />
-              </button>
-            </div>
-            <Link href={"/auth/forgot-password"} className={`text-[var(--white)] ${isLogin ? "block" : "hidden"}`}>Forgot password?</Link>
-          </div>
+          <Input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            label="Password"
+            ref={passwordRef}
+            onChange={handleOnChange}
+            onClick={handleTogglePassword}
+            showPassword={showPassword}
+            showForgotPasswordText={true}
+          />
 
           <br />
 

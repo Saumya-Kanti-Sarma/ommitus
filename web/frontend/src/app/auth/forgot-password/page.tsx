@@ -8,6 +8,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Input } from "@/components/UI/Restaurant/Input/Input";
 
 export default function ForgotPassword() {
 
@@ -78,57 +79,35 @@ export default function ForgotPassword() {
         </h1>
 
         {/* Email */}
-        <input
+        <Input
+          label="Enteryour email ID: "
           type="email"
           placeholder="Email"
           name="email"
           onChange={handleOnChange}
-          className="p-2 rounded-md border focus:outline-none text-white focus:ring-2 focus:ring-[var(--white)] focus:border-none bg-transparent"
         />
 
         {/* Current Password with toggle */}
-        <div className="relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Current Password"
-            name="password"
-            onChange={handleOnChange}
-            className="w-full p-2 rounded-md border focus:outline-none text-white focus:ring-2 focus:ring-[var(--white)] focus:border-none bg-transparent"
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2"
-          >
-            <img
-              src={showPassword ? "/icons/eye.svg" : "/icons/close-eye.svg"}
-              alt="password-icon"
-              className="w-5 h-5 invert"
-            />
-          </button>
-        </div>
+        <Input
+          label="Enter your password: "
+          type={showPassword ? "text" : "password"}
+          placeholder="Current Password"
+          name="password"
+          onChange={handleOnChange}
+          onClick={() => setShowPassword(!showPassword)}
+          showPassword={showPassword}
+        />
 
         {/* New Password with toggle */}
-        <div className="relative">
-          <input
-            type={showNewPassword ? "text" : "password"}
-            placeholder="New Password"
-            name="newPassword"
-            onChange={handleOnChange}
-            className="w-full p-2 rounded-md border focus:outline-none text-white focus:ring-2 focus:ring-[var(--white)] focus:border-none bg-transparent"
-          />
-          <button
-            type="button"
-            onClick={() => setShowNewPassword(!showNewPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2"
-          >
-            <img
-              src={showNewPassword ? "/icons/eye.svg" : "/icons/close-eye.svg"}
-              alt="password-icon"
-              className="w-5 h-5 invert"
-            />
-          </button>
-        </div>
+        <Input
+          label="Enter new password: "
+          type={showNewPassword ? "text" : "password"}
+          placeholder="New Password"
+          name="newPassword"
+          onChange={handleOnChange}
+          onClick={() => setShowNewPassword(!showNewPassword)}
+          showPassword={showNewPassword}
+        />
 
         <button
           type="submit"
