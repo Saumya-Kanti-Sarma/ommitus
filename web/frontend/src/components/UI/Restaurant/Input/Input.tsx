@@ -13,6 +13,10 @@ interface InputProps {
   label?: string;
   showPassword?: boolean;
   showForgotPasswordText?: boolean;
+  disableInput?: boolean;
+  inputValue?: string | null,
+  readOnly?: boolean,
+  labelColor?: boolean,
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -26,11 +30,16 @@ export const Input: React.FC<InputProps> = ({
   label = "Text label",
   showPassword = false,
   showForgotPasswordText = false,
+  disableInput = false,
+  inputValue = "",
+  readOnly = false,
+  labelColor = false
+
 }) => {
   return (
-    <div>
+    <div className={`${disableInput && `opacity-65`}`}>
       {label && (
-        <label className="block mb-2 font-semibold text-[var(--white)]">
+        <label className={`block mb-2 font-semibold text-[var(--white)] ${labelColor && `text-black`}`}>
           {label}
         </label>
       )}
@@ -47,6 +56,9 @@ export const Input: React.FC<InputProps> = ({
           ref={ref}
           onKeyDown={onKeyDown}
           onChange={onChange}
+          disabled={disableInput}
+          value={inputValue || ""}
+          readOnly={readOnly}
         />
 
         {type == "password" && (
