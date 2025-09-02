@@ -12,6 +12,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { Input } from "@/components/UI/Restaurant/Input/Input";
 
 export default function DishForm() {
   const [image, setImage] = useState<File | null>(null); // this will store the image File
@@ -159,16 +160,13 @@ export default function DishForm() {
         <h1 className="text-2xl font-bold text-[var(--blue)] mb-4 max-md:text-[16px]">Add Dish To Menu</h1>
 
         {/* Dish Name */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold max-md:text-[12px] max-md:mb-1">
-          Dish Name
-        </label>
-        <input
+        <Input
           type="text"
           name="dishName"
           placeholder="Enter dish name"
           onChange={handleOnChange}
-          className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
-          required
+          label="Dish Name"
+          labelColor={true}
         />
 
         {/* Image Upload */}
@@ -236,43 +234,32 @@ export default function DishForm() {
         </div>
 
         {/* Description */}
-        <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
-          Description
-        </label>
-        <input
+        <Input
           name="description"
           placeholder="Enter description"
           onChange={handleOnChange}
-          className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
+          label="Description"
+          labelColor={true}
         />
 
         {/* Prices */}
-        <div className="flex gap-4">
-          <div className="flex-1  max-md:text-[12px] max-md:mb-1">
-            <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
-              Full Plate Price
-            </label>
-            <input
-              type="number"
-              name="fullPlate"
-              placeholder="₹ Full price"
-              onChange={handleOnChange}
-              className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
-              required
-            />
-          </div>
-          <div className="flex-1  max-md:text-[12px] max-md:mb-1">
-            <label className="block mb-2 text-[var(--dark-blue)] font-semibold">
-              Half Plate Price
-            </label>
-            <input
-              type="number"
-              name="halfPlate"
-              onChange={handleOnChange}
-              placeholder="₹ Half price"
-              className="w-full border border-[var(--gray)] p-2 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-[var(--blue)] max-md:text-[10px]"
-            />
-          </div>
+        <div className="flex gap-4 my-2.5">
+          <Input
+            type="number"
+            name="fullPlate"
+            placeholder="₹ Full price"
+            onChange={handleOnChange}
+            label="Price"
+            labelColor={true}
+          />
+          <Input
+            type="number"
+            name="halfPlate"
+            onChange={handleOnChange}
+            placeholder="₹ Half price"
+            label="Half plate price"
+            labelColor={true}
+          />
         </div>
         {/* Available? */}
         <label className="block mb-2 text-[var(--dark-blue)] font-semibold  max-md:text-[12px] max-md:mb-1">
