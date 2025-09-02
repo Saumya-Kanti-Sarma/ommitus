@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Input } from "@/components/UI/Restaurant/Input/Input";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -144,92 +145,68 @@ const Page = () => {
         </h1>
         <p className="text-center opacity-50 max-md:text-[12px]">Joined Ommitus at: {info.createdAt?.slice(0, 16)}</p>
 
-        {/* Restaurant Name (readonly) */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--black)] mb-1">
-            Restaurant Name
-          </label>
-          <input
-            type="text"
-            value={restaurantName || ""}
-            readOnly
-            className="w-full border border-gray-300 rounded-lg p-3 bg-gray-100 focus:outline-none opacity-40"
-            disabled
-          />
-        </div>
+        {/* Restaurant Name (readonly)  */}
+        <Input
+          label="Restaurant Name"
+          type="text"
+          inputValue={restaurantName}
+          labelColor={true}
+          readOnly={true}
+          disableInput={true}
+        />
 
         {/* Email (readonly from API) */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--black)] mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            value={info.email}
-            readOnly
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none opacity-40 bg-gray-100"
-            disabled
-          />
-        </div>
+        <Input
+          label="Email"
+          type="email"
+          inputValue={info.email}
+          labelColor={true}
+          readOnly={true}
+          disableInput={true}
+        />
 
         {/* Owner Name */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--black)] mb-1">
-            Owner Name
-          </label>
-          <input
-            type="text"
-            value={info.ownerName}
-            onChange={handleFormChange}
-            name="ownerName"
-            placeholder="eg: Saumya Sarma"
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
-          />
-        </div>
+        <Input
+          label="Owner Name"
+          type="text"
+          inputValue={info.ownerName}
+          labelColor={true}
+          onChange={handleFormChange}
+          name="ownerName"
+          placeholder="eg: Saumya Sarma"
+        />
 
         {/* Since */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--black)] mb-1">
-            Since
-          </label>
-          <input
-            type="number"
-            name="since"
-            value={info.since}
-            placeholder="eg: 1999"
-            onChange={handleFormChange}
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
-          />
-        </div>
+        <Input
+          label="Since"
+          type="number"
+          name="since"
+          inputValue={info.since}
+          labelColor={true}
+          placeholder="eg: 1999"
+          onChange={handleFormChange}
+        />
 
         {/* Address */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--black)] mb-1">
-            Address
-          </label>
-          <input
-            value={info.address}
-            name="address"
-            onChange={handleFormChange}
-            placeholder="eg: Rajbari, Agartala 11332"
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
-          />
-        </div>
+        <Input
+          label="Address"
+          inputValue={info.address}
+          labelColor={true}
+          name="address"
+          onChange={handleFormChange}
+          placeholder="eg: Rajbari, Agartala 11332"
+        />
 
         {/* Phone Number */}
-        <div>
-          <label className="block text-sm font-medium text-[var(--black)] mb-1">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            onChange={handleFormChange}
-            value={info.phoneNumber}
-            placeholder="eg: +91 9876543210"
-            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[var(--blue)]"
-          />
-        </div>
+        <Input
+          type="tel"
+          name="phoneNumber"
+          onChange={handleFormChange}
+          inputValue={info.phoneNumber}
+          labelColor={true}
+          placeholder="eg: +91 9876543210"
+          label="Phone Number"
+        />
 
         {/* Categories */}
         <div>
