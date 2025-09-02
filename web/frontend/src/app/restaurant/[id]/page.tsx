@@ -221,12 +221,6 @@ const Page = () => {
                   className={`relative px-3 py-1 rounded-[5px] text-[#2c2c2c] text-sm  cursor-default font-medium shadow-md text-center items-center flex group ${idx % 2 === 0 ? "bg-[#d1d1d1]" : "bg-[#ececec]"} transition duration-100 ease-in-out opacity-80 hover:opacity-100 hover:scale-[1.05]`}
                 >
                   {cat.charAt(0).toUpperCase() + cat.slice(1)}
-
-                  <img
-                    src="/icons/delete.svg"
-                    alt="delete"
-                    className="w-[20px] absolute left-1/2 -translate-x-1/2 bottom-[-30%] opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer duration-250 "
-                  />
                 </span>
               ))
             ) : (
