@@ -14,7 +14,7 @@ interface InputProps {
   showPassword?: boolean;
   showForgotPasswordText?: boolean;
   disableInput?: boolean;
-  inputValue?: string | null,
+  inputValue?: any,
   readOnly?: boolean,
   labelColor?: boolean,
 }
@@ -31,7 +31,7 @@ export const Input: React.FC<InputProps> = ({
   showPassword = false,
   showForgotPasswordText = false,
   disableInput = false,
-  inputValue = "",
+  inputValue,
   readOnly = false,
   labelColor = false
 
