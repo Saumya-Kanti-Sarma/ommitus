@@ -11,6 +11,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import Dish from "@/components/UI/DishCart/DishCart.component";
+import DishCartSkeleton from "@/components/UI/DishCart/DishCartSkeleton.component";
 
 interface Dish {
   createdAt: number; // Date.now()
@@ -353,53 +354,14 @@ const Page = () => {
                   ))}
 
                   {/* Skeletons while loading */}
-                  {loading &&
-                    Array.from({ length: 7 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden max-w-[320px] w-full animate-pulse max-md:mx-auto max-md:my-0"
-                      >
-                        <div className="w-full h-40 bg-[var(--light-gray)]" />
-                        <div className="p-4 flex flex-col gap-3">
-                          <div className="flex justify-between items-center">
-                            <div className="h-4 w-24 bg-[var(--light-gray)] rounded" />
-                            <div className="w-3 h-3 bg-[var(--light-gray)] rounded-full" />
-                          </div>
-                          <div className="h-3 w-20 bg-[var(--light-gray)] rounded" />
-                          <div className="flex gap-4">
-                            <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
-                            <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                  {loading && <DishCartSkeleton length={7} />}
                 </div>
               </div>
             </> :
             <>
               <div className="w-[97%] max-w-[1080px] h-15 mx-auto my-5 bg-[var(--light-gray)] rounded-2xl animate-pulse"></div>
               <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-[97%] max-w-[1080px] mx-auto">
-                {
-                  Array.from({ length: 14 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden max-w-[320px] w-full animate-pulse max-md:mx-auto max-md:my-0"
-                    >
-                      <div className="w-full h-40 bg-[var(--light-gray)]" />
-                      <div className="p-4 flex flex-col gap-3">
-                        <div className="flex justify-between items-center">
-                          <div className="h-4 w-24 bg-[var(--light-gray)] rounded" />
-                          <div className="w-3 h-3 bg-[var(--light-gray)] rounded-full" />
-                        </div>
-                        <div className="h-3 w-20 bg-[var(--light-gray)] rounded" />
-                        <div className="flex gap-4">
-                          <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
-                          <div className="h-3 w-16 bg-[var(--light-gray)] rounded" />
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                }
+                <DishCartSkeleton length={14} />
               </div>
 
             </>
