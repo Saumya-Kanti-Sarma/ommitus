@@ -7,6 +7,7 @@ import Link from "next/link";
 
 const Page = () => {
   const restaurantName = Cookies.get("restaurantName") || "Restaurant";
+  const restaurantId = Cookies.get("restaurantId");
   const qrRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = async () => {
@@ -34,7 +35,7 @@ const Page = () => {
         </h1>
 
         <div className="flex justify-center bg-[#f5f5f5] p-4 rounded-xl mb-6">
-          <QRCode value={`/customer/${restaurantName}/menu`} />
+          <QRCode value={`/customer/${restaurantName}/${restaurantId}/menu`} />
         </div>
 
         <p className="text-[#5a5a5a] mb-6">
@@ -48,7 +49,7 @@ const Page = () => {
       >
         Download this
       </button>
-      <Link href={`/customer/${restaurantName}/menu`} target="blank" className="text-blue-500 mt-5 hover:underline">Click here to visit</Link>
+      <Link href={`/customer/${restaurantName}/${restaurantId}/menu`} target="blank" className="text-blue-500 mt-5 hover:underline">Click here to visit</Link>
     </div>
   );
 };
