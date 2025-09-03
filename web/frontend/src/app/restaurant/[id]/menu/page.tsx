@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import Dish from "@/components/UI/DishCart/DishCart.component";
 import DishCartSkeleton from "@/components/UI/DishCart/DishCartSkeleton.component";
+import CategorySidebar from "@/components/UI/CategorySidebar/CategorySidebar.component";
 
 interface Dish {
   createdAt: number; // Date.now()
@@ -243,83 +244,12 @@ const Page = () => {
     <>
       <main className={`flex w-full h-[calc(100vh-70px)] overflow-hidden items-start relative max-md:h-[calc(100vh-60px)]`}>
         {/* All categories and filters side bar */}
-        <aside
-          className={`w-[300px] h-[calc(100dvh-70px)] overflow-y-auto bg-[var(--dark-blue)] text-white p-5 shadow-md transition-all duration-300 ease-in-out z-50 max-lg:absolute max-lg:top-0 
-          ${visibleDropdown ? "max-lg:left-0" : "max-lg:-left-full"} max-md:h-[calc(100dvh-60px)]`}>
-
-          {initalLoad ?
-            <>
-              <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
-                All Categories
-              </h1>
-              <ul className="space-y-3">
-                {categories.map((item, index) => (
-                  <li key={index}>
-                    <button
-                      className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${index === activeBtnClass
-                        ? "bg-[var(--green)] text-white shadow-md"
-                        : "hover:bg-[var(--blue)] hover:text-white"
-                        }`}
-                      onClick={() => { setActiveBtnClass(index); handleCategoryFilter(item) }}
-                    >
-                      {item}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <br />
-              <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
-                Filters
-              </h1>
-              <ul className="space-y-3">
-                {["Available Dishes", "Unavailable Dishes"].map((item, index) => (
-                  <li key={index}>
-                    <button
-                      className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${categories.length + 1 + index === activeBtnClass
-                        ? "bg-[var(--green)] text-white shadow-md"
-                        : "hover:bg-[var(--blue)] hover:text-white"
-                        }`}
-                      onClick={() => { setActiveBtnClass(categories.length + 1 + index); handleAvailableFilter(index == 0 ? true : false) }}
-                    >
-                      {item}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </> :
-            <>
-              <div className=" h-full opacity-70 flex flex-col gap-3 animate-pulse">
-                {/* Categories heading */}
-                <div className="h-6 w-40 bg-[var(--light-gray)] rounded mb-6" />
-
-                {/* Categories list */}
-                <ul className="space-y-3">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <li key={i}>
-                      <div className="h-8 w-full bg-[var(--light-gray)] rounded-lg" />
-                    </li>
-                  ))}
-                </ul>
-
-                <br />
-                <br />
-
-                {/* Filters heading */}
-                <div className="h-6 w-32 bg-[var(--light-gray)] rounded mb-3" />
-
-                {/* Filters list */}
-                <ul className="space-y-3">
-                  {Array.from({ length: 2 }).map((_, i) => (
-                    <li key={i}>
-                      <div className="h-8 w-full bg-[var(--light-gray)] rounded-lg" />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </>
-          }
-
-        </aside>
+        <CategorySidebar
+          visibleDropdown={visibleDropdown}
+          restaurantId={`${restaurantId}`}
+          OnClickCategoryBtn={handleCategoryFilter}
+          onClickFilterBtn={handleAvailableFilter}
+        />
 
         {/* Main section */}
         <section className={`h-full  w-full overflow-y-auto scrollbar ${visibleDropdown ? "blur-xs" : "blur-none"}`} onClick={() => setVisibleDropdown(prev => prev == true ? false : false)}>
