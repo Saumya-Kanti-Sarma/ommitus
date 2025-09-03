@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import LayoutComponent from "./LayoutComponent";
 
 export async function generateMetadata(
   { params }: { params: { restaurantName: string } },
@@ -15,5 +16,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <>{<LayoutComponent />}{children}</>;
 }
