@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import Dish from "@/components/UI/DishCart/DishCart.component";
 
 interface Dish {
   createdAt: number; // Date.now()
@@ -343,30 +344,12 @@ const Page = () => {
                 <div className="grid grid-cols-4 gap-10 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 w-full">
                   {/* Menu */}
                   {filterDishes.map((dish, idx) => (
-                    <Link
-                      key={idx}
-                      id={idx === filterDishes.length - 1 ? "last-dish" : undefined} // attach observer to last dish
-                      href={`/restaurant/${restaurantId}/menu/${dish?._id}`}
-                      className="bg-[var(--white)] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition duration-200 max-w-[320px] max-md:w-[300px] max-md:mx-auto max-md:my-0 hover:scale-101"
-                    >
-                      <img src={dish?.image[0] || ""} alt={dish?.dishName} className="w-full h-40 object-cover" />
-                      <div className="p-4 flex flex-col gap-2">
-                        <div className="flex justify-between items-center">
-                          <p className="text-lg font-semibold text-[var(--black)]">{dish?.dishName}</p>
-                          <span
-                            className={`w-3 h-3 rounded-full ${dish?.veg ? "bg-[var(--green)]" : "bg-[var(--red)]"}`}
-                          />
-                        </div>
-                        <p
-                          className={`text-sm font-medium ${dish?.available ? "text-[var(--green)]" : "text-[var(--red)]"}`}
-                        >
-                          {dish?.available ? "Available" : "Unavailable"} | {dish?.category}
-                        </p>
-                        <div className="flex gap-4 text-sm text-[var(--dark-blue)]">
-                          {dish?.fullPlate && <p className="font-medium">₹{dish?.fullPlate}{dish?.halfPlate == 0 ? "" : ` / ₹${dish.halfPlate}`}</p>}
-                        </div>
-                      </div>
-                    </Link>
+                    <Dish
+                      idx={idx}
+                      allDishes={filterDishes}
+                      restaurantId={restaurantId}
+                      dish={dish}
+                    />
                   ))}
 
                   {/* Skeletons while loading */}
