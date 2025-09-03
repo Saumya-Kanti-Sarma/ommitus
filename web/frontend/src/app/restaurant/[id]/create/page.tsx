@@ -165,6 +165,7 @@ export default function DishForm() {
           name="dishName"
           placeholder="Enter dish name"
           onChange={handleOnChange}
+          inputValue={formData.dishName}
           label="Dish Name"
           labelColor={true}
         />
@@ -240,6 +241,7 @@ export default function DishForm() {
           onChange={handleOnChange}
           label="Description"
           labelColor={true}
+          inputValue={formData.description}
         />
 
         {/* Prices */}
@@ -251,6 +253,7 @@ export default function DishForm() {
             onChange={handleOnChange}
             label="Price"
             labelColor={true}
+            inputValue={formData.fullPlate}
           />
           <Input
             type="number"
@@ -259,6 +262,7 @@ export default function DishForm() {
             placeholder="₹ Half price"
             label="Half plate price"
             labelColor={true}
+            inputValue={formData.halfPlate}
           />
         </div>
         {/* Available? */}

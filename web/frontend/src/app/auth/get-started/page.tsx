@@ -164,6 +164,7 @@ export default function Login() {
             ref={resRef}
             onKeyDown={(e) => handleKeyDown(ownerNameRef, actionBtndRef, e)}
             onChange={handleOnChange}
+            inputValue={inputData.restaurantName}
           />
           {/* Owner Name */}
           {!isLogin && (
@@ -175,6 +176,7 @@ export default function Login() {
               placeholder="Enter the name of restaurant owner"
               onKeyDown={(e) => handleKeyDown(emailRef, resRef, e)}
               onChange={handleOnChange}
+              inputValue={inputData.ownerName}
             />
           )}
 
@@ -188,6 +190,7 @@ export default function Login() {
               label="Email"
               onKeyDown={(e) => handleKeyDown(passwordRef, ownerNameRef, e)}
               onChange={handleOnChange}
+              inputValue={inputData.email}
             />
           )}
 
@@ -202,6 +205,7 @@ export default function Login() {
             onClick={handleTogglePassword}
             showPassword={showPassword}
             showForgotPasswordText={true}
+            inputValue={inputData.password}
           />
 
           <br />
