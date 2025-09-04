@@ -8,12 +8,13 @@ interface CategorySidebarTypes {
   OnClickCategoryBtn: (item: string) => void;
   onClickFilterBtn: (filter: boolean) => void;
   restaurantId: string;
+  showFilterCategories: boolean
 }
 // API keys
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-const CategorySidebar: React.FC<CategorySidebarTypes> = ({ visibleDropdown, restaurantId, OnClickCategoryBtn, onClickFilterBtn }) => {
+const CategorySidebar: React.FC<CategorySidebarTypes> = ({ visibleDropdown, restaurantId, OnClickCategoryBtn, onClickFilterBtn, showFilterCategories = true }) => {
   const [initalLoad, setInitialLoad] = useState(false); // this stores the initaal loading state, when menu and category is loaded it becomes false; (5th useEffect)
 
   const [categories, setCategories] = useState<string[]>(["All"]); // this will store all categories of restaurant
@@ -75,11 +76,11 @@ const CategorySidebar: React.FC<CategorySidebarTypes> = ({ visibleDropdown, rest
             ))}
           </ul>
           <br />
-          <h1 className="text-xl font-bold mb-6 border-b border-white/30 pb-2">
+          <h1 className={`text-xl font-bold mb-6 border-b border-white/30 pb-2 ${!showFilterCategories && "hidden"}`}>
             Filters
           </h1>
           <ul className="space-y-3">
-            {["Available Dishes", "Unavailable Dishes"].map((item, index) => (
+            {showFilterCategories && ["Available Dishes", "Unavailable Dishes"].map((item, index) => (
               <li key={index}>
                 <button
                   className={`w-full text-left px-3 py-2 rounded-lg transition duration-200 ${categories.length + 1 + index === activeBtnClass

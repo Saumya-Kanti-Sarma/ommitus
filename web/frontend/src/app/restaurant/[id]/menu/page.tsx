@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Link from "next/link";
 import Dish from "@/components/UI/DishCart/DishCart.component";
 import DishCartSkeleton from "@/components/UI/DishCart/DishCartSkeleton.component";
 import CategorySidebar from "@/components/UI/CategorySidebar/CategorySidebar.component";
@@ -245,6 +244,7 @@ const Page = () => {
       <main className={`flex w-full h-[calc(100vh-70px)] overflow-hidden items-start relative max-md:h-[calc(100vh-60px)]`}>
         {/* All categories and filters side bar */}
         <CategorySidebar
+          showFilterCategories={true}
           visibleDropdown={visibleDropdown}
           restaurantId={`${restaurantId}`}
           OnClickCategoryBtn={handleCategoryFilter}
