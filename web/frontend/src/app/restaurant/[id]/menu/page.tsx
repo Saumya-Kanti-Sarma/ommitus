@@ -36,8 +36,6 @@ const Page = () => {
   const [allDish, setAllDish] = useState<Dish[]>([]); // this will store arrays of Dish object;
   const [filterDishes, setFilterDishes] = useState<Dish[]>([]); // this will store arrays of Dish object from allDish list with filter property;
   const [categories, setCategories] = useState<string[]>(["All"]); // this will store all categories of restaurant
-  const [activeBtnClass, setActiveBtnClass] = useState(0); // this will toggle the styles for active category btn
-
   const [visibleDropdown, setVisibleDropdown] = useState(false); // this will toggle the visibility of category menu (which is only visible for max-lg screens. When true ? 0% left : -100% left)
 
   const [page, setPage] = useState(1); // track current page
@@ -278,7 +276,7 @@ const Page = () => {
                     <Dish
                       idx={idx}
                       allDishes={filterDishes}
-                      redirectUrl={`/restaurant/${restaurantId}/menu}`}
+                      redirectUrl={decodeURIComponent(`restaurant/${restaurantId}/menu`)}
                       dish={dish}
                     />
                   ))}
