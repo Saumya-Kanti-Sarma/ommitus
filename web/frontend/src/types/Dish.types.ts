@@ -8,4 +8,5 @@ export default interface DishTypes {
   halfPlate?: number | null;
   available?: boolean;
   image?: string[];
+  description: string;
 }
