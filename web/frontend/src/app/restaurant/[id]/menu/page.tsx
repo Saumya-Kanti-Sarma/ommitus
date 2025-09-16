@@ -278,7 +278,7 @@ const Page = () => {
                     <Dish
                       idx={idx}
                       allDishes={filterDishes}
-                      restaurantId={restaurantId}
+                      redirectUrl={`/restaurant/${restaurantId}/menu}`}
                       dish={dish}
                     />
                   ))}

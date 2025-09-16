@@ -33,7 +33,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Page = () => {
-  const { restaurantId } = useParams();
+  const { restaurantName, restaurantId } = useParams();
   const isDropdownVisible = useDropdown((state: DropdownStateTypes) => state.dropdown);
   const hideDropdown = useDropdown((state: DropdownStateTypes) => state.hideDropdown);
 
@@ -253,7 +253,7 @@ const Page = () => {
                     <Dish
                       idx={idx}
                       allDishes={filterDishes}
-                      restaurantId={`${restaurantId}`}
+                      redirectUrl={`/customer/${restaurantName}/${restaurantId}/menu`}
                       dish={dish}
                     />
                   ))}

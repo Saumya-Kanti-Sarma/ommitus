@@ -3,6 +3,6 @@ import DishTypes from "./Dish.types";
 export default interface DishCartTypes {
   idx?: number,
   allDishes?: DishTypes[],
-  restaurantId?: string | undefined,
+  redirectUrl?: string | undefined,
   dish?: DishTypes,
 }
