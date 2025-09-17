@@ -12,18 +12,8 @@ import toast from "react-hot-toast";
 import Dish from "@/components/UI/DishCart/DishCart.component";
 import DishCartSkeleton from "@/components/UI/DishCart/DishCartSkeleton.component";
 import CategorySidebar from "@/components/UI/CategorySidebar/CategorySidebar.component";
+import DishTypes from "@/types/Dish.types";
 
-interface Dish {
-  createdAt: number; // Date.now()
-  _id: string;
-  dishName: string;
-  category: string;
-  veg: boolean;
-  fullPlate: number | null;
-  halfPlate: number | null;
-  available: boolean;
-  image: string[];
-}
 
 // API keys
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -33,8 +23,8 @@ const Page = () => {
   const restaurantId = Cookies.get("restaurantId");// Cookies
   const [initalLoad, setInitialLoad] = useState(false); // this stores the initaal loading state, when menu and category is loaded it becomes false; (5th useEffect)
 
-  const [allDish, setAllDish] = useState<Dish[]>([]); // this will store arrays of Dish object;
-  const [filterDishes, setFilterDishes] = useState<Dish[]>([]); // this will store arrays of Dish object from allDish list with filter property;
+  const [allDish, setAllDish] = useState<DishTypes[]>([]); // this will store arrays of Dish object;
+  const [filterDishes, setFilterDishes] = useState<DishTypes[]>([]); // this will store arrays of Dish object from allDish list with filter property;
   const [categories, setCategories] = useState<string[]>(["All"]); // this will store all categories of restaurant
   const [visibleDropdown, setVisibleDropdown] = useState(false); // this will toggle the visibility of category menu (which is only visible for max-lg screens. When true ? 0% left : -100% left)
 
@@ -56,7 +46,7 @@ const Page = () => {
           },
         }
       );
-      const newDishes: Dish[] = data.data;
+      const newDishes: DishTypes[] = data.data;
 
       if (newDishes.length === 0) {
         setHasMore(false);
@@ -111,7 +101,7 @@ const Page = () => {
     }
 
     setLoading(true);
-    let combinedResults: Dish[] = [];
+    let combinedResults: DishTypes[] = [];
     let searchPage = 1;
     let found = false;
     let keepFetching = true;
@@ -128,7 +118,7 @@ const Page = () => {
           }
         );
 
-        const newDishes: Dish[] = data.data;
+        const newDishes: DishTypes[] = data.data;
         if (newDishes.length === 0) {
           keepFetching = false; // no more dishes
           break;
@@ -137,7 +127,7 @@ const Page = () => {
         combinedResults = [...combinedResults, ...newDishes];
 
         const filtered = combinedResults.filter(dish =>
-          dish.dishName.toLowerCase().includes(value)
+          dish?.dishName?.toLowerCase().includes(value)
         );
 
         if (filtered.length > 0) {
@@ -167,7 +157,7 @@ const Page = () => {
     if (category === "All") {
       setFilterDishes(allDish); // show everything
     } else {
-      const filtered = allDish.filter(dish => dish.category.toLowerCase() === category.toLowerCase().trim());
+      const filtered = allDish.filter(dish => dish.category?.toLowerCase() === category.toLowerCase().trim());
       setFilterDishes(filtered);
     }
 

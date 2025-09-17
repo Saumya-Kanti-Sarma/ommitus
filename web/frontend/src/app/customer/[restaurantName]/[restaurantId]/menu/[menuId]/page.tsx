@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DishTypes from "@/types/Dish.types";
+import Dish from "@/components/UI/DishCart/DishCart.component";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -103,8 +104,8 @@ const Page = () => {
         </div>
         <span
           className={`inline-block px-3 py-1 text-sm rounded-full ${dish.veg
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700"
+            ? "bg-green-100 text-green-700"
+            : "bg-red-100 text-red-700"
             }`}
         >
           {dish.veg ? "Veg" : "Non-Veg"}
