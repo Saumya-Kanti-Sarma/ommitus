@@ -90,66 +90,6 @@ const Page = () => {
     }
   };
 
-  // 3. function to handle input change value (as the user starts typing, dish automatically starts to appear)
-  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim().toLowerCase();
-
-    if (value === "") {
-      // Reset to show everything again
-      setFilterDishes(allDish);
-      return;
-    }
-
-    setLoading(true);
-    let combinedResults: DishTypes[] = [];
-    let searchPage = 1;
-    let found = false;
-    let keepFetching = true;
-
-    try {
-      while (keepFetching) {
-        const { data } = await axios.get(
-          `${API_URL}/api/menu/all?page=${searchPage}&limit=12`,
-          {
-            headers: {
-              xkc: API_KEY!,
-              xrid: restaurantId!,
-            },
-          }
-        );
-
-        const newDishes: DishTypes[] = data.data;
-        if (newDishes.length === 0) {
-          keepFetching = false; // no more dishes
-          break;
-        }
-
-        combinedResults = [...combinedResults, ...newDishes];
-
-        const filtered = combinedResults.filter(dish =>
-          dish.dishName?.toLowerCase().includes(value)
-        );
-
-        if (filtered.length > 0) {
-          setFilterDishes(filtered);
-          found = true;
-          keepFetching = false; // stop once we found matches
-        } else {
-          searchPage++;
-        }
-      }
-
-      if (!found) {
-        setFilterDishes([]); // nothing matched
-        toast.error("No dishes found");
-      }
-    } catch (error) {
-      toast.error("Failed while searching");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // 5. function to filter dishes according to category
   const handleCategoryFilter = (category: string) => {
     setLoading(true);

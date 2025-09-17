@@ -5,18 +5,22 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DishTypes from "@/types/Dish.types";
 import Dish from "@/components/UI/DishCart/DishCart.component";
+import DishCartSkeleton from "@/components/UI/DishCart/DishCartSkeleton.component";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Page = () => {
-  const { menuId, restaurantId } = useParams();
+  const { menuId, restaurantId, restaurantName } = useParams();
   const [dish, setDish] = useState<DishTypes | null>(null);
+  const [realtedDishes, setRelatedDishes] = useState<DishTypes[] | null>(null);
+  const [realtedDishesLoading, setRelatedDishesLoading] = useState<Boolean>(false);
   const [loading, setLoading] = useState(true);
   const [imagePreview, setImagePreview] = useState(false);
 
   // load dish
   useEffect(() => {
+
     const fetchDishInfo = async () => {
       try {
         const res = await axios.get(`${API_URL}/api/menu/${menuId}`, {
@@ -38,17 +42,58 @@ const Page = () => {
     fetchDishInfo();
   }, [menuId, restaurantId]);
 
+  //load related dishes
+  useEffect(() => {
+    if (!dish?.category) return;
+    const fetchRelatedDishes = async () => {
+      try {
+        setRelatedDishesLoading(true);
+        const { data } = await axios.get(
+          `${API_URL}/api/menu/all?available=true&category=${dish.category}`,
+          {
+            headers: {
+              xkc: API_KEY!,
+              xrid: restaurantId!,
+            },
+          }
+        );
+        const newDishes: DishTypes[] = data.data;
+        setRelatedDishes(newDishes);
+      } catch (error) {
+        toast.error("Failed to fetch related dish dishes");
+      } finally {
+        setTimeout(() => {
+          setRelatedDishesLoading(false);
+        }, 2000);
+      }
+    };
+    fetchRelatedDishes();
+  }, [dish]);
+
   if (loading) {
     return (
-      <div className="flex justify-center items-start min-h-screen bg-gray-50 mt-5">
-        <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg animate-pulse">
-          <div className="h-48 bg-gray-200 rounded-xl mb-4"></div>
-          <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-          <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+      <>
+        <div className="flex justify-center items-start bg-gray-50 mt-5">
+          <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg animate-pulse">
+            <div className="h-48 bg-gray-200 rounded-xl mb-4"></div>
+            <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+          </div>
         </div>
-      </div>
+        <br />
+        <div className="flex justify-center items-start bg-gray-50 mt-5">
+          <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg animate-pulse">
+            <div className="h-48 bg-gray-200 rounded-xl mb-4"></div>
+            <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+            <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+          </div>
+        </div>
+
+      </>
     );
   }
 
@@ -61,7 +106,7 @@ const Page = () => {
   }
 
   return (
-    <div className="flex justify-center items-start min-h-screen bg-gray-50 mt-5 relative">
+    <div className="flex flex-col justify-start items-center min-h-screen bg-gray-50 pt-5 relative">
       <div className="w-full max-w-md p-6 bg-white rounded-2xl shadow-lg">
         {/* Dish image */}
         <img
@@ -116,6 +161,35 @@ const Page = () => {
           </p>
         )}
       </div>
+      {/* Related Dishes Section */}
+      <div className="w-full max-w-[1200px] mt-10 px-4">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          Related Dishes
+        </h2>
+        <div className="grid grid-cols-4 gap-8 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+          {realtedDishes &&
+            realtedDishes.map((dish, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+              >
+                <Dish
+                  idx={idx}
+                  allDishes={realtedDishes}
+                  redirectUrl={`customer/${restaurantName}/${restaurantId}/menu`}
+                  dish={dish}
+                />
+              </div>
+            ))}
+
+          {realtedDishesLoading && (
+            <div className="col-span-full">
+              <DishCartSkeleton length={7} />
+            </div>
+          )}
+        </div>
+      </div>
+
     </div>
   );
 };
