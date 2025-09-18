@@ -14,7 +14,7 @@ interface InputProps {
   showPassword?: boolean;
   showForgotPasswordText?: boolean;
   disableInput?: boolean;
-  inputValue?: any,
+  inputValue?: string | number | undefined | null,
   readOnly?: boolean,
   labelColor?: boolean,
 }

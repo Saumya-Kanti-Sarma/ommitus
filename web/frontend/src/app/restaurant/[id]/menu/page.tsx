@@ -264,6 +264,7 @@ const Page = () => {
                   {/* Menu */}
                   {filterDishes.map((dish, idx) => (
                     <Dish
+                      key={idx}
                       idx={idx}
                       allDishes={filterDishes}
                       redirectUrl={decodeURIComponent(`restaurant/${restaurantId}/menu`)}

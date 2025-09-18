@@ -6,7 +6,7 @@
  */}
 
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { Input } from "@/components/UI/Restaurant/Input/Input";
 
@@ -55,8 +55,12 @@ export default function ForgotPassword() {
       //console.log(data);
       toast.success(data.message || "Password updated successfully!");
 
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Something went wrong.");
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        toast.error(err.response?.data?.message || "Something went wrong.");
+      } else {
+        toast.error("Something went wrong.");
+      }
     } finally {
       toast.dismiss(loading);
     }

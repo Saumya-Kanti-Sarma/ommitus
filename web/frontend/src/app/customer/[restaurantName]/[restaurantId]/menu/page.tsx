@@ -60,7 +60,7 @@ const Page = () => {
         //console.log(newDishes);
 
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to fetch dishes");
     } finally {
       setTimeout(() => {
@@ -176,6 +176,7 @@ const Page = () => {
                   {/* Menu */}
                   {filterDishes.map((dish, idx) => (
                     <Dish
+                      key={idx}
                       idx={idx}
                       allDishes={filterDishes}
                       redirectUrl={`customer/${restaurantName}/${restaurantId}/menu`}

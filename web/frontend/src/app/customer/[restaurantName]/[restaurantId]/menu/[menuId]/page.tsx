@@ -14,7 +14,7 @@ const Page = () => {
   const { menuId, restaurantId, restaurantName } = useParams();
   const [dish, setDish] = useState<DishTypes | null>(null);
   const [realtedDishes, setRelatedDishes] = useState<DishTypes[] | null>(null);
-  const [realtedDishesLoading, setRelatedDishesLoading] = useState<Boolean>(false);
+  const [realtedDishesLoading, setRelatedDishesLoading] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [imagePreview, setImagePreview] = useState(false);
 

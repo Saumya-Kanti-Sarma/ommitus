@@ -1,7 +1,7 @@
 // utils/handleOnChange.ts
 export const handleOnChange = (
   e: React.ChangeEvent<HTMLInputElement>
-): Record<string, any> | null => {
+) => {
   e.preventDefault();
   const { name, value, files } = e.target;
 

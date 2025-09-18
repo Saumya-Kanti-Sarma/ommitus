@@ -64,7 +64,7 @@ const Page = () => {
           }
         );
         const data = res.data.restaurantDetails;
-        console.log(data);
+        //console.log(data);
 
         if (data) {
           setInfo({
@@ -79,7 +79,7 @@ const Page = () => {
           SetCategories(data.categories);
         }
       } catch (err) {
-        console.error("Error fetching restaurant info:", err);
+        //console.error("Error fetching restaurant info:", err);
       }
     };
 
@@ -94,21 +94,21 @@ const Page = () => {
     const { name, value } = event.target;
     if (name === "categories") {
       const categoryList = value.split(",").map(cat => cat.trim());
-      console.log(categoryList);
+      //console.log(categoryList);
 
       setInfo(prev => ({
         ...prev,
         categories: categoryList
       }));
 
-      console.log(info);
+      //console.log(info);
       return;
     };
     setInfo(prev => ({
       ...prev,
       [name]: value
     }));
-    //console.log(info);
+    ////console.log(info);
   }
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -126,12 +126,11 @@ const Page = () => {
         },
       );
       const data = res.data;
-      console.log(data);
+      //console.log(data);
       toast.success(data.message)
 
-    } catch (err: any) {
-      console.error("Error fetching restaurant info:", err);
-      toast.error(err.response?.data?.message)
+    } catch (err) {
+      //console.error("Error fetching restaurant info:", err);
     } finally {
       toast.dismiss(loading)
     }

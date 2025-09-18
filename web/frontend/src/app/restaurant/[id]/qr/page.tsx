@@ -9,6 +9,7 @@ const Page = () => {
   const restaurantName = Cookies.get("restaurantName") || "Restaurant";
   const restaurantId = Cookies.get("restaurantId");
   const qrRef = useRef<HTMLDivElement>(null);
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
   const handleDownload = async () => {
     if (qrRef.current) {
@@ -35,7 +36,7 @@ const Page = () => {
         </h1>
 
         <div className="flex justify-center bg-[#f5f5f5] p-4 rounded-xl mb-6">
-          <QRCode value={`/customer/${restaurantName}/${restaurantId}/menu`} />
+          <QRCode value={`${BASE_URL}/customer/${restaurantName.replace(/\s+/g, "")}/${restaurantId}/menu`} />
         </div>
 
         <p className="text-[#5a5a5a] mb-6">

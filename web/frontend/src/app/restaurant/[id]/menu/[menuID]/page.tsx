@@ -190,7 +190,7 @@ export default function DishDetails() {
       toast.success(res.data.message || "Menu Updated successfully");
       console.log(res.data);
 
-    } catch (err: any) {
+    } catch (err) {
       if (axios.isAxiosError(err)) {
         console.error("Axios error:", err.response?.data || err.message);
         toast.error(err.response?.data?.error || "Request failed");
@@ -221,7 +221,7 @@ export default function DishDetails() {
       toast.success(res.data.message || "Menu Deleted successfully");
       console.log(res.data);
 
-    } catch (err: any) {
+    } catch (err) {
       if (axios.isAxiosError(err)) {
         console.error("Axios error:", err.response?.data || err.message);
         toast.error(err.response?.data?.error || "Request failed");

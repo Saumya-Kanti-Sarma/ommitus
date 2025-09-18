@@ -97,9 +97,13 @@ export default function Login() {
         toast.success("Account created successfully!");
         router.push(`/restaurant/${data.data._id}`);
       }
-    } catch (err: any) {
+    } catch (err) {
       //console.error(err);
-      toast.error(err.response?.data?.message || "Something went wrong. Try again later.");
+      if (axios.isAxiosError(err)) {
+        toast.error(err.response?.data?.message || "Something went wrong.");
+      } else {
+        toast.error("Something went wrong.");
+      }
     } finally {
       toast.dismiss(loading);
     }
