@@ -1,7 +1,8 @@
 export default function Home() {
   return (
     <div className="flex h-full w-full justify-center items-center">
-      <h1>landing page</h1>
+      <h1>Hi this is nextjs</h1>
+      <a href="/about">about</a>
     </div>
   );
 }
