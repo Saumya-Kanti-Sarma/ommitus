@@ -10,7 +10,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // middlewares
-app.use(cors({ origin: process.env.CORS_ORIGIN }));
+app.use(cors());
+const corsOptions = {
+  origin: ["*"],
+  credentials: true
+};
+app.use(cors(corsOptions));
+
+
 app.use(express.json());
 
 app.use("/api", (req: Request, res: Response, next: NextFunction) => {
@@ -26,6 +33,12 @@ app.use("/api/menu/", (req: Request, res: Response, next: NextFunction) => {
 
 
 // Routes
+app.get("/", (req, res) => {
+  return res.json({
+    message: "Welcome to ommitus backend",
+    made_by: "Saumya Kanti Sarma"
+  })
+})
 app.use("/api/restaurant/", restaurantRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/ratings", ratingsRoutes);
