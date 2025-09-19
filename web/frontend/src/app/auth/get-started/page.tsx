@@ -10,7 +10,6 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
-import Link from "next/link";
 import { Input } from "@/components/UI/Restaurant/Input/Input";
 
 export default function Login() {
@@ -98,9 +97,10 @@ export default function Login() {
         router.push(`/restaurant/${data.data._id}`);
       }
     } catch (err) {
-      //console.error(err);
+      console.error(err);
       if (axios.isAxiosError(err)) {
         toast.error(err.response?.data?.message || "Something went wrong.");
+
       } else {
         toast.error("Something went wrong.");
       }
