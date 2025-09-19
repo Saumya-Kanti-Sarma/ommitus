@@ -9,7 +9,7 @@ const Page = () => {
   const restaurantName = Cookies.get("restaurantName") || "Restaurant";
   const restaurantId = Cookies.get("restaurantId");
   const qrRef = useRef<HTMLDivElement>(null);
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+  const BASE_URL = process.env.NEXT_PUBLIC_DOMAIN_URL
 
   const handleDownload = async () => {
     if (qrRef.current) {
