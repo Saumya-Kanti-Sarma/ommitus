@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express"
 import { menuData } from "../schema/menu.schema";
 import { restaurantData } from "../schema/restaurant.schema";
+import DishTypes from "../types/dish.types";
 const router = express.Router();
 
 // Create menu items
 router.post("/add-menu", async (req: Request, res: Response) => {
   try {
     const id = req.headers["xrid"];
-    const { dishName, image, available, category, veg, description, fullPlate, halfPlate } = req.body;
+    const { dishName, image, available, category, veg, description, fullPlate, halfPlate }: DishTypes = req.body;
     const { addMany } = req.query;
 
     const restaurant = await restaurantData.findById(id, { _id: 1, categories: 1 });
@@ -44,9 +45,9 @@ router.post("/add-menu", async (req: Request, res: Response) => {
     // Single insert (default)
     if (category && !restaurant.categories.includes(category)) {
       return res.status(404).send({ message: "no category is available." });
-    }
-
-    const data = new menuData({ restaurantId: restaurant._id, dishName, available, image, category, veg, description, fullPlate, halfPlate });
+    };
+    const lowercasedCategory = category?.toLocaleLowerCase();
+    const data = new menuData({ restaurantId: restaurant._id, dishName, available, image, category: lowercasedCategory, veg, description, fullPlate, halfPlate });
     const response = await data.save();
 
     res.status(200).send({
