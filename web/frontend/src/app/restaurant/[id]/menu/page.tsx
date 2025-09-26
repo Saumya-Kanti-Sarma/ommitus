@@ -1,8 +1,13 @@
 "use client";
 {/* 
   file path    : web/frontend/src/app/restaurant/[id]/menu/page.tsx 
-  Note         : this file has logic showing all dishes in the menu of specific restaurant. It get's restaurantId from cookie. APIs called : http://localhost:3000/all?available=<available>&category=<category>&page=1&limit=25 
   route        : /restaurant/:id/menu 
+  Note         : This file has logic showing all dishes in the menu of specific restaurant.
+                 It get's restaurantId from cookie.
+                 APIs called : 
+                    1. http://localhost:3000/all?available=<available>&category=<category>&page=1&limit=25 (fetching all dishes)
+                    2. http://localhost:3000/api/restaurant/get-all-categories/${restaurantId} (fetching all categories)
+                    3. 
 */ }
 
 import { useEffect, useState } from "react";
@@ -21,24 +26,22 @@ const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Page = () => {
   const restaurantId = Cookies.get("restaurantId");// Cookies
-  const [initalLoad, setInitialLoad] = useState(false); // this stores the initaal loading state, when menu and category is loaded it becomes false; (5th useEffect)
-
+  const [initalLoad, setInitialLoad] = useState(false); // this stores the inital loading state, when menu and category is loaded it becomes false; (5th useEffect)
   const [allDish, setAllDish] = useState<DishTypes[]>([]); // this will store arrays of Dish object;
   const [filterDishes, setFilterDishes] = useState<DishTypes[]>([]); // this will store arrays of Dish object from allDish list with filter property;
   const [categories, setCategories] = useState<string[]>(["All"]); // this will store all categories of restaurant
   const [visibleDropdown, setVisibleDropdown] = useState(false); // this will toggle the visibility of category menu (which is only visible for max-lg screens. When true ? 0% left : -100% left)
 
-  const [page, setPage] = useState(1); // track current page
   const [loading, setLoading] = useState(false); // skeleton trigger
-  const [hasMore, setHasMore] = useState(true); // stop when no more dishes
 
   // All Functions
-  // 1.function to fetch all dishes from server
-  const fetchAllDish = async (page = 1, limit = 12) => {
+  // 1.function to fetch dishes from server at the limit of 12 dishes per fetch. 
+  const fetchDishes = async (page = 1, limit = 12) => {
     try {
       setLoading(true);
+      let apiURL: string = `${API_URL}/api/menu/all`;
       const { data } = await axios.get(
-        `${API_URL}/api/menu/all?page=${page}&limit=${limit}`,
+        apiURL,
         {
           headers: {
             xkc: API_KEY!,
@@ -47,18 +50,14 @@ const Page = () => {
         }
       );
       const newDishes: DishTypes[] = data.data;
+      console.log(data.data);
 
-      if (newDishes.length === 0) {
-        setHasMore(false);
-        return "end of dishes";
-
-      } else {
-        setAllDish(prev => [...prev, ...newDishes]);
-        //console.log(newDishes);
-
-      }
+      setAllDish(prev => [...prev, ...newDishes]);
     } catch (error) {
       toast.error("Failed to fetch dishes");
+      if (process.env.NEXT_PUBLIC_SERVER_TYPE === "development") {
+        console.log(error);
+      };
     } finally {
       setTimeout(() => {
         setLoading(false);
@@ -79,18 +78,23 @@ const Page = () => {
         }
       );
       const data = res.data;
-      //console.log(data.categories);
+
+      if (process.env.NEXT_PUBLIC_SERVER_TYPE === "development") {
+        console.log(data.categories);
+      };
       setCategories(prev => [...prev, ...data.categories]);
     } catch (error) {
       toast.error("Failed to load categories");
-      console.error("Category Fetch error:", error);
+      if (process.env.NEXT_PUBLIC_SERVER_TYPE === "development") {
+        console.error("Category Fetch error:", error);
+      };
     }
   };
 
   // 3. function to toggle visibility of sidebar for max-lg
   const handleVisibleDropdown = () => setVisibleDropdown(prev => !prev);
 
-  // 4. function to handle input change value (as the user starts typing, dish automatically starts to appear)
+  // 4. function to handle input change in the search bar (as the user starts typing, dish automatically starts to appear)
   const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim().toLowerCase();
 
@@ -150,76 +154,57 @@ const Page = () => {
     }
   };
 
-  // 5. function to filter dishes according to category
-  const handleCategoryFilter = (category: string) => {
+  // 5. function to handle filteration of dishes according to category
+  const handleCategoryChange = (category: string) => {
     setLoading(true);
+    setFilterDishes([]);
+    setTimeout(() => {
+      setLoading(false);
+      let arr: DishTypes[] = [];
+      allDish.filter((item) => {
+        if (item.category?.toLowerCase() === category.toLowerCase()) {
+          arr.push(item);
+          setFilterDishes(arr);
+          console.log(arr);
+        };
+        if (category === "All") {
+          setFilterDishes(allDish);
+          console.log(allDish);
+        };
+      });
 
-    if (category === "All") {
-      setFilterDishes(allDish); // show everything
-    } else {
-      const filtered = allDish.filter(dish => dish.category?.toLowerCase() === category.toLowerCase().trim());
-      setFilterDishes(filtered);
-    }
+    }, 1200);
+  }
+
+  // 5. function to handle filteration of dishes according to category
+  const handleAvailabilityChange = (available: boolean) => {
+    setLoading(true);
+    setFilterDishes([]);
 
     setTimeout(() => {
       setLoading(false);
-    }, 400);
-  };
+      let arr: DishTypes[] = [];
+      allDish.filter((item) => {
+        if (item.available === available) {
+          arr.push(item);
+          setFilterDishes(arr);
+          console.log(arr);
+        };
+      });
 
-  // 5. function to filter dishes according to availability
-  const handleAvailableFilter = (available: boolean) => {
-    setLoading(true);
-
-    const filtered = allDish.filter(dish => dish.available === available);
-    setFilterDishes(filtered);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 400);
-  };
-
-
+    }, 1200);
+  }
 
   // renders
   // 1. fetch initial dishes and all categories
   useEffect(() => {
     if (!restaurantId) return;
-    setPage(1);
-    setHasMore(true);
-    fetchAllDish();
+    fetchDishes();
     fetchCategories();
   }, [restaurantId]);
 
-  // 2. infinite scroll observer
-  useEffect(() => {
-    //console.log("scrolling...");
-    if (!hasMore || loading) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          setPage(prev => prev + 1);
-        }
-      },
-      { threshold: 1 }
-    );
 
-    const lastDish = document.querySelector("#last-dish");
-    if (lastDish) observer.observe(lastDish);
-
-    return () => {
-      if (lastDish) observer.unobserve(lastDish);
-    };
-  }, [filterDishes, loading, hasMore]);
-
-  // 3. Fetch when page increments
-  useEffect(() => {
-    if (!restaurantId) return;
-    if (page > 1) fetchAllDish(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-
-  //5. setInital loading false when menu and categories are loaded
+  //2. setInital loading false when menu and categories are loaded
   useEffect(() => {
     if (allDish.length > 0 && categories.length > 0) {
       setFilterDishes(allDish);
@@ -235,8 +220,8 @@ const Page = () => {
           showFilterCategories={true}
           visibleDropdown={visibleDropdown}
           restaurantId={`${restaurantId}`}
-          OnClickCategoryBtn={handleCategoryFilter}
-          onClickFilterBtn={handleAvailableFilter}
+          OnClickCategoryBtn={handleCategoryChange}
+          onClickFilterBtn={handleAvailabilityChange}
         />
 
         {/* Main section */}
@@ -294,3 +279,17 @@ const Page = () => {
 };
 
 export default Page;
+
+// 1. implement infinite scrolling for allDish.
+{/*
+  1. fetch 12 dishes initially and give an id named "last-dish" to the 12th dish
+  2. when the last dish is visible on screen, then show skeletom loaders and fetch 12 more dishes untill anymore dish is available.
+  3. How will you know that anymore dish is available or not?
+     Well for that we'll provide a backend logic to that returns null of no more dishes are available.
+     When we encounter null then we stop fetchiing any more items
+  */}
+
+// implement infinnite scrolling for different category
+{/*
+  Do the same as allDish
+  */}
