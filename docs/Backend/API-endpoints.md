@@ -34,7 +34,8 @@ Welcome to the Ommitus Restaurant API documentation! Here you'll find all the en
 | Name                        | Method | URL                                                        | Use                                   | Status            |
 |-----------------------------|--------|------------------------------------------------------------|---------------------------------------|-------------------|
 | Create Menu(one/bulk)       | POST   | http://localhost:3000/api/menu/add-menu                    | create new menu                       | Production Ready  |
-| Access menus                | GET    | htt../all?available=true&category=<category>&page=1&limit=5| access menu items with filters        | Production Ready  |
+| Access menus                | GET    | htt../all?available=true&category=<category>&page=1&limit=5| access menu items with filters        | Delayed           |
+| Access menus                | GET    | http://localhost:3000/api/all?available=true&category=<category>| access menu items with filters        | Prodution Ready           |
 | Access one menus            | GET    | http://localhost:3000/api/menu/:menuID                     | access one menu                       | Production Ready  |
 | Update menu                 | PUT    | http://localhost:3000/api/menu/:menuID                     | update menu                           | Production Ready  |
 | Delete menu                 | DELETE | http://localhost:3000/api/menu/:menuID                     | delete menu                           | Production Ready  |
