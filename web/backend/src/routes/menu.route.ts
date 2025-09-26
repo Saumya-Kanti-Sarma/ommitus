@@ -61,11 +61,11 @@ router.post("/add-menu", async (req: Request, res: Response) => {
   }
 });
 
-// Read all menu items /all?available=true&category=<category>&page=1&limit=5
+// Read all menu items /all?available=true&=<category>&page=1&limit=5
 router.get("/all", async (req: Request, res: Response) => {
   try {
     const id = req.headers["xrid"];
-    const { available, category, page = 1, limit = 7 } = req.query;
+    const { available, category } = req.query;
     if (available) {
       const data = await menuData.find({ restaurantId: id, available: available }, { description: 0, restaurantId: 0, __v: 0 });
       return res.status(200).send({
@@ -74,19 +74,19 @@ router.get("/all", async (req: Request, res: Response) => {
     };
 
     if (category) {
-      const data = await menuData.find({ restaurantId: id, category: category }, { description: 0, restaurantId: 0, __v: 0 }).limit(Number(limit)).skip((Number(page) - 1) * Number(limit)).sort({ createdAt: -1 });
+      const data = await menuData.find({ restaurantId: id, category: category }, { description: 0, restaurantId: 0, __v: 0 });
       return res.status(200).send({
         data
       });
     };
 
     if (available && category) {
-      const data = await menuData.find({ restaurantId: id, available: available, category: category }, { description: 0, restaurantId: 0, __v: 0 }).limit(Number(limit)).skip((Number(page) - 1) * Number(limit)).sort({ createdAt: -1 });
+      const data = await menuData.find({ restaurantId: id, available: available, category: category }, { description: 0, restaurantId: 0, __v: 0 });
       return res.status(200).send({
         data
       });
     };
-    const data = await menuData.find({ restaurantId: id }, { description: 0, restaurantId: 0, __v: 0 }).limit(Number(limit)).skip((Number(page) - 1) * Number(limit))
+    const data = await menuData.find({ restaurantId: id }, { description: 0, restaurantId: 0, __v: 0 })
 
     res.status(200).send({
       data
