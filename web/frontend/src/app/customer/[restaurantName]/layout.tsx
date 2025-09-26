@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import CustomerNavbar from "@/components/UI/Customer/Navbar.customer.component";
 
 export async function generateMetadata(
 ): Promise<Metadata> {
@@ -15,7 +14,6 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <CustomerNavbar />
       {children}
     </>
   );

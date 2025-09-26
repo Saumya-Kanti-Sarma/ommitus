@@ -1,7 +1,7 @@
 "use client";
 {/* 
   file path    : web/frontend/src/app/restaurant/[id]/menu/page.tsx 
-  Note         : this file has logic showing all dishes in the menu of specific restaurant. It get's restaurantId from cookie. APIs called : http://localhost:3000/all?available=<available>&category=<category>&page=1&limit=25 
+  Note         : this file has logic showing all dishes in the menu of specific restaurant. It get's restaurantId from cookie. APIs called : http://localhost:3000/all?available=true&category=<category>
   route        : /restaurant/:id/menu 
 */ }
 
@@ -15,6 +15,7 @@ import { useParams } from "next/navigation";
 import { useDropdown } from "@/store/Store";
 import { DropdownStateTypes } from "@/types/Store.types";
 import DishTypes from "@/types/Dish.types";
+import CustomerNavbar from "@/components/UI/Customer/Navbar.customer.component";
 
 // API keys
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -31,17 +32,15 @@ const Page = () => {
   const [filterDishes, setFilterDishes] = useState<DishTypes[]>([]); // this will store arrays of Dish object from allDish list with filter property;
   const [categories, setCategories] = useState<string[]>(["All"]); // this will store all categories of restaurant
 
-  const [page, setPage] = useState(1); // track current page
   const [loading, setLoading] = useState(false); // skeleton trigger
-  const [hasMore, setHasMore] = useState(true); // stop when no more dishes
 
   // All Functions
   // 1.function to fetch all dishes from server
-  const fetchAllDish = async (page = 1, limit = 12) => {
+  const fetchAllDish = async () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${API_URL}/api/menu/all?page=${page}&limit=${limit}`,
+        `${API_URL}/api/menu/all?available=true`,
         {
           headers: {
             xkc: API_KEY!,
@@ -50,16 +49,10 @@ const Page = () => {
         }
       );
       const newDishes = data.data;
+      console.log(newDishes);
 
-      if (newDishes.length === 0) {
-        setHasMore(false);
-        return "end of dishes";
+      setAllDish(prev => [...prev, ...newDishes]);
 
-      } else {
-        setAllDish(prev => [...prev, ...newDishes]);
-        //console.log(newDishes);
-
-      }
     } catch {
       toast.error("Failed to fetch dishes");
     } finally {
@@ -76,7 +69,6 @@ const Page = () => {
         `${API_URL}/api/restaurant/get-all-categories/${restaurantId}`,
         {
           headers: {
-            "Content-Type": "application/json",
             xkc: API_KEY!,
           },
         }
@@ -93,17 +85,16 @@ const Page = () => {
   // 5. function to filter dishes according to category
   const handleCategoryFilter = (category: string) => {
     setLoading(true);
-
-    if (category === "All") {
-      setFilterDishes(allDish); // show everything
-    } else {
-      const filtered = allDish.filter(dish => dish.category?.toLowerCase() === category.toLowerCase().trim());
-      setFilterDishes(filtered);
-    }
-
+    setFilterDishes([]);
     setTimeout(() => {
+      if (category === "All") {
+        setFilterDishes(allDish); // show everything
+      } else {
+        const filtered = allDish.filter(dish => dish.category?.toLowerCase() === category.toLowerCase().trim());
+        setFilterDishes(filtered);
+      };
       setLoading(false);
-    }, 400);
+    }, 1200);
   };
 
 
@@ -111,42 +102,12 @@ const Page = () => {
   // 1. fetch initial dishes and all categories
   useEffect(() => {
     if (!restaurantId) return;
-    setPage(1);
-    setHasMore(true);
     fetchAllDish();
     fetchCategories();
   }, [restaurantId]);
 
-  // 2. infinite scroll observer
-  useEffect(() => {
-    //console.log("scrolling...");
-    if (!hasMore || loading) return;
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          setPage(prev => prev + 1);
-        }
-      },
-      { threshold: 1 }
-    );
 
-    const lastDish = document.querySelector("#last-dish");
-    if (lastDish) observer.observe(lastDish);
-
-    return () => {
-      if (lastDish) observer.unobserve(lastDish);
-    };
-  }, [filterDishes, loading, hasMore]);
-
-  // 3. Fetch when page increments
-  useEffect(() => {
-    if (!restaurantId) return;
-    if (page > 1) fetchAllDish(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-
-  //5. setInital loading false when menu and categories are loaded
+  //2. setInital loading false when menu and categories are loaded
   useEffect(() => {
     if (allDish.length > 0 && categories.length > 0) {
       setFilterDishes(allDish);
@@ -156,6 +117,7 @@ const Page = () => {
 
   return (
     <>
+      <CustomerNavbar />
       <main className={`flex w-full h-[calc(100vh-70px)] overflow-hidden items-start relative max-md:h-[calc(100vh-60px)]`}>
         {/* All categories and filters side bar */}
         <CategorySidebar
