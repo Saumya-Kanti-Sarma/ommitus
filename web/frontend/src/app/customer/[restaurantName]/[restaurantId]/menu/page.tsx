@@ -94,6 +94,7 @@ const Page = () => {
         setFilterDishes(filtered);
       };
       setLoading(false);
+      hideDropdown();
     }, 1200);
   };
 
