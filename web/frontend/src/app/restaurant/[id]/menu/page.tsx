@@ -36,10 +36,10 @@ const Page = () => {
 
   // All Functions
   // 1.function to fetch dishes from server at the limit of 12 dishes per fetch. 
-  const fetchDishes = async (page = 1, limit = 12) => {
+  const fetchDishes = async () => {
     try {
       setLoading(true);
-      let apiURL: string = `${API_URL}/api/menu/all`;
+      const apiURL: string = `${API_URL}/api/menu/all`;
       const { data } = await axios.get(
         apiURL,
         {
@@ -160,7 +160,7 @@ const Page = () => {
     setFilterDishes([]);
     setTimeout(() => {
       setLoading(false);
-      let arr: DishTypes[] = [];
+      const arr: DishTypes[] = [];
       allDish.filter((item) => {
         if (item.category?.toLowerCase() === category.toLowerCase()) {
           arr.push(item);
@@ -183,7 +183,7 @@ const Page = () => {
 
     setTimeout(() => {
       setLoading(false);
-      let arr: DishTypes[] = [];
+      const arr: DishTypes[] = [];
       allDish.filter((item) => {
         if (item.available === available) {
           arr.push(item);
