@@ -15,7 +15,6 @@ import { useParams } from "next/navigation";
 import { useDropdown } from "@/store/Store";
 import { DropdownStateTypes } from "@/types/Store.types";
 import DishTypes from "@/types/Dish.types";
-import CustomerNavbar from "@/components/UI/Customer/Navbar.customer.component";
 
 // API keys
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -118,7 +117,6 @@ const Page = () => {
 
   return (
     <>
-      <CustomerNavbar />
       <main className={`flex w-full h-[calc(100vh-70px)] overflow-hidden items-start relative max-md:h-[calc(100vh-60px)]`}>
         {/* All categories and filters side bar */}
         <CategorySidebar
