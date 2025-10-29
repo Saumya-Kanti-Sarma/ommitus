@@ -1,3 +1,3 @@
 export interface LandingPageTypes {
-  handleNavbarClick: () => void,
+  handleNavbtnClick?: () => void,
 }

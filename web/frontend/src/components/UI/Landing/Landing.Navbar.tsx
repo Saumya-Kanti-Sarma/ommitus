@@ -1,9 +1,8 @@
 import Link from "next/link";
-import React from "react";
-
-const LandingNavbar = () => {
+import { LandingPageTypes } from "@/types/Landing.types";
+const LandingNavbar = ({ handleNavbtnClick }: LandingPageTypes) => {
   return (
-    <nav className="bg-[#1191D0] text-white py-4 px-8 flex justify-between items-center shadow-md relative">
+    <nav className="h-[70px] bg-[#1191D0] text-white py-4 px-8 flex justify-between items-center shadow-md relative">
       {/* Brand */}
       <h1 className="text-2xl font-bold tracking-wide">Ommitus</h1>
 
@@ -30,7 +29,7 @@ const LandingNavbar = () => {
           Get Started
         </Link>
         {/* Menu Button for Mobile */}
-        <button className="block md:hidden cursor-pointer">
+        <button className="block md:hidden cursor-pointer" onClick={handleNavbtnClick}>
           <img src="/icons/menu.svg" alt="menu" className="w-8" />
         </button>
       </div>
