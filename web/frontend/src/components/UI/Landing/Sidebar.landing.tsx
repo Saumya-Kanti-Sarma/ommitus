@@ -8,7 +8,13 @@ const LandingSideBar = ({ showSideBar }: SidebarTypes) => {
       absolute transition-transform duration-300 ease-in-out
       ${showSideBar ? 'translate-x-0' : 'translate-x-[-100%]'}
     `}>
-      this is sidebarzzzz
+      <ul className='flex flex-col justify-between items-center gap-1.5 h-[90%] mt-[10px]'>
+        {['Features', 'About', 'Pricing', 'FAQs', 'Login',].map((item, index) => (
+          <li key={index} className='text-[18px] font-medium'>
+            {item}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
