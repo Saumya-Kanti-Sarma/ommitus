@@ -1,8 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import { LandingPageTypes } from "@/types/Landing.types";
-const LandingNavbar = ({ handleNavbtnClick }: LandingPageTypes) => {
+import { useState } from "react";
+const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
+  const [navImg, setNavImg] = useState("/icons/menu.svg");
   return (
     <nav className="h-[70px] bg-[#1191D0] text-white py-4 px-8 flex justify-between items-center shadow-md relative">
+      {/* Menu Button for Mobile */}
+      <button className="block md:hidden cursor-pointer" onClick={() => {
+        handleNavbtnClick();
+        setNavImg((prev) => prev == "/icons/menu.svg" ? "/icons/gray-menu.svg" : "/icons/menu.svg")
+      }}>
+        <img src={navImg} alt="menu" className="w-8" />
+      </button>
       {/* Brand */}
       <h1 className="text-2xl font-bold tracking-wide">Ommitus</h1>
 
@@ -28,10 +39,6 @@ const LandingNavbar = ({ handleNavbtnClick }: LandingPageTypes) => {
         >
           Get Started
         </Link>
-        {/* Menu Button for Mobile */}
-        <button className="block md:hidden cursor-pointer" onClick={handleNavbtnClick}>
-          <img src="/icons/menu.svg" alt="menu" className="w-8" />
-        </button>
       </div>
     </nav>
   );
