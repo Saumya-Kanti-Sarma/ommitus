@@ -1,5 +1,5 @@
 "use client";
-import LandingNavbar from "@/components/UI/Landing/Navbar.landing";
+import LandingNavbar from "@/components/UI/Landing/Navbar/Navbar.landing";
 import LandingSideBar from "@/components/UI/Landing/Sidebar.landing";
 import { useState } from "react";
 export default function Home() {

@@ -1,5 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import "./animation.css";
 
 export const metadata = {
   title: 'Next.js',
