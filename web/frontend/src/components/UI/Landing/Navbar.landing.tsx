@@ -1,8 +1,8 @@
 "use client";
-
 import Link from "next/link";
 import { LandingPageTypes } from "@/types/Landing.types";
 import { useState } from "react";
+import TypingAnimation from "../Typing-Animation/TypingAnimation.UI.Component";
 const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
   const [navImg, setNavImg] = useState("/icons/menu.svg");
   return (
@@ -19,8 +19,10 @@ const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
         <div className="flex justify-start items-center gap-1">
           <img src="/icons/logo5.png" alt="menu-logo" className="max-w-[50px]" />
           <div className="flex flex-col justify-start items-start">
-            <h1 className="text-[18px] font-black m-0">OMMITUS</h1>
-            <p className="text-[816x]">Restaurant Services</p>
+            <TypingAnimation text="OMMITUS" extraStyles="text-[20px] font-black m-0" />
+            <TypingAnimation text="Restaurant Services" extraStyles="text-[14px]" />
+            {/* <h1 className="text-[18px] font-black m-0">OMMITUS</h1> */}
+            {/* <p className="text-[816x]">Restaurant Services</p> */}
           </div>
         </div>
       </Link>
