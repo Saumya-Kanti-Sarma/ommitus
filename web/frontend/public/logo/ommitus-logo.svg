@@ -1,0 +1,16 @@
+<svg width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="280" width="240" height="240" rx="33" fill="white"/>
+<rect x="33.6001" y="313.6" width="172.8" height="172.8" rx="26" fill="black"/>
+<rect x="60" y="340.8" width="119.2" height="119.2" rx="56" fill="white"/>
+<rect x="280" width="240" height="240" rx="33" fill="white"/>
+<rect x="280" width="240" height="240" rx="33" fill="white"/>
+<rect x="340" y="60" width="119.2" height="119.2" rx="19" fill="black"/>
+<rect x="280" y="280.734" width="79.3323" height="79.3323" rx="19" fill="white"/>
+<rect x="280.066" y="440.668" width="79.3323" height="79.3323" rx="19" fill="white"/>
+<rect x="440.667" y="440.668" width="79.3323" height="79.3323" rx="19" fill="white"/>
+<rect x="359.531" y="361.534" width="79.3323" height="79.3323" rx="19" fill="white"/>
+<rect x="440.602" y="280" width="79.3323" height="79.3323" rx="19" fill="white"/>
+<rect width="240" height="240" rx="33" fill="white"/>
+<rect x="33.6001" y="33.6" width="172.8" height="172.8" rx="26" fill="black"/>
+<path d="M76 76H113.2C140.814 76 163.2 98.3858 163.2 126V163.2H126C98.3858 163.2 76 140.814 76 113.2V76Z" fill="white"/>
+</svg>
