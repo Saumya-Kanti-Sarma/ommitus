@@ -29,12 +29,12 @@ const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
       <div className="flex justify-between items-center gap-6">
         <ul className="hidden md:flex items-center gap-6">
           {['Features', 'About', 'Pricing', 'FAQs'].map((item, index) => (
-            <li className="landing-nav-hover cursor-pointer" key={index}>{item}</li>
+            <li className="landing-nav-links cursor-pointer text-xl" key={index}>{item}</li>
           ))}
           <Link
             target="blank"
             href="/auth/get-started"
-            className="landing-nav-hover cursor-pointer"
+            className="landing-nav-links cursor-pointer text-xl"
           >
             Login
           </Link>
@@ -42,7 +42,7 @@ const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
         <Link
           target="blank"
           href="/auth/get-started"
-          className="bg-white text-[var(--black)] px-4 py-1 rounded-md font-medium hover:opacity-90 transition-all"
+          className="get-started-btn bg-white text-[var(--black)] px-4 py-1 rounded-md font-medium"
         >
           Get Started
         </Link>
