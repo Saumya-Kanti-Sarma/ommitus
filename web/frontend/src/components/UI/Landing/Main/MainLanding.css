@@ -1,0 +1,58 @@
+.dotted-div::before,
+.dotted-div::after,
+.dotted-div {
+  border-top: 1px dashed;
+  border-bottom: 1px dashed;
+  border-color: #383838;
+  padding: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 130px;
+  position: relative;
+}
+
+.dotted-div::before {
+  position: absolute;
+  left: 10%;
+  top: -18%;
+  width: 0;
+  height: 140%;
+  content: "";
+  border-left: 1px dashed;
+  border-color: #383838;
+  padding: 0;
+}
+
+.dotted-div::after {
+  position: absolute;
+  right: 10%;
+  top: -18%;
+  width: 0;
+  height: 140%;
+  content: "";
+  border-right: 1px dashed;
+  border-color: #383838;
+  padding: 0;
+}
+
+.digital-smart {
+  display: inline-block;
+  background-image: linear-gradient(to right,
+      #f60, rgb(253, 146, 74), #f60, #f60);
+  background-size: 200%;
+  background-clip: text;
+  color: transparent;
+  animation: animation 5s ease-in-out infinite;
+}
+
+@keyframes animation {
+  from {
+    background-position: 0;
+  }
+
+  to {
+    background-position: 200%;
+  }
+}
