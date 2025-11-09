@@ -18,7 +18,7 @@ const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
       {/* Brand */}
       <Link href={"/"}>
         <div className="flex justify-start items-center gap-1">
-          <img src="/logo/ommitus-1.svg" alt="menu-logo" className="max-w-[50px] mr-2 nav-img" />
+          <img src="/logo/ommitus-logo.svg" alt="menu-logo" className="max-w-[35px] mr-1 nav-img" />
           <div className="flex flex-col justify-start items-start">
             <TypingAnimation text="OMMITUS" extraStyles="text-[20px] font-black m-0" />
             <TypingAnimation text="Restaurant Services" extraStyles="text-[14px]" />
