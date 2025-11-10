@@ -4,6 +4,7 @@ import Link from "next/link";
 import { LandingPageTypes } from "@/types/Landing.types";
 import { useState } from "react";
 import TypingAnimation from "../../Typing-Animation/TypingAnimation.UI.Component";
+import GetStartedBtn from "../GetstartedBtn/GetStarted.component";
 const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
   const [navImg, setNavImg] = useState("/icons/menu.svg");
   return (
@@ -39,13 +40,7 @@ const LandingNavbar = ({ handleNavbtnClick = () => { } }: LandingPageTypes) => {
             Login
           </Link>
         </ul>
-        <Link
-          target="blank"
-          href="/auth/get-started"
-          className="get-started-btn bg-white text-[var(--black)] px-4 py-1 rounded-md font-medium"
-        >
-          Get Started
-        </Link>
+        <GetStartedBtn />
       </div>
     </nav>
   );
