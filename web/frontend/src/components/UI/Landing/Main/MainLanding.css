@@ -1,3 +1,33 @@
+.landing01 {
+  background: linear-gradient(92deg, #000000, #0c0c0c, #000000, #0c0c0c, #000000, #0c0c0c);
+  background-size: 400% 400%;
+  animation: BackgroundGradient 5s ease infinite;
+}
+
+@keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .dotted-div::before,
 .dotted-div::after,
 .dotted-div {

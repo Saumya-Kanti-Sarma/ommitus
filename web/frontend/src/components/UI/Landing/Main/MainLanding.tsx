@@ -1,22 +1,39 @@
 "use client";
+import Link from "next/link";
+import GetStartedBtn from "../GetstartedBtn/GetStarted.component";
 import "./MainLanding.css";
 
 const MainLanding = () => {
   return (
-    <div className="flex justify-center items-center w-full">
-      <div className="w-full max-w-7xl h-[calc(100vh-70px)] flex flex-col justify-center items-center gap-0 ">
-        <div className="dotted-div">
-          <h1 className="text-4xl font-bold w-fit">
-            We provide{" "}
-            <h1 className="font-black digital-smart">
-              Digitally Smart Menu
-            </h1>{" "}
-            for your restaurant
-          </h1>
+    <>
+      <div className=" flex justify-center items-center w-full  h-[calc(100vh-70px)] landing01">
+
+        <div className="  w-full max-w-7xl h-[calc(100vh-70px)] flex flex-col justify-center items-center gap-0 ">
+          <div className="dotted-div flex-col">
+            <img src="/logo/ommitus-logo.svg" alt="ommitus-logo" className="w-[200px]" />
+            <h1 className="text-8xl font-black">OMMITUS</h1>
+          </div>
+          <div className="dotted-div">
+            <h1 className="text-4xl font-bold w-fit">
+              We provide{" "}
+              <span className="font-black digital-smart">
+                Digitally Smart Menu
+              </span>{" "}
+              for your restaurant
+            </h1>
+          </div>
+          <p className="text-2xl max-w-4xl text-center"> Let the experience thrive with our digital menu that can be shared on google reviews, social medias, posters, banners anywhere any place...</p>
+          <div className="flex flex-col sm:flex-row items-center justify-between  mt-6  w-full max-w-3xl">
+            <GetStartedBtn fontSize="30px" borderRadius="10px" width="300px" />
+            <Link href="/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+              Watch customer success story
+            </Link>
+          </div>
         </div>
-        {/* <p> Let the experience thrive with our digital menu that can be shared on google reviews, social medias, posters, banners anywhere any place...</p> */}
+
       </div>
-    </div>
+      <div className="h-[100vh] w-full bg-amber-300"></div>
+    </>
   )
 }
 
