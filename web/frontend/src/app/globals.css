@@ -35,6 +35,6 @@ body::-webkit-scrollbar,
 
 body::-webkit-scrollbar-thumb,
 .scrollbar::-webkit-scrollbar-thumb {
-  background: var(--dark-blue);
+  background: var(--black);
   border-radius: none;
 }
