@@ -6,10 +6,12 @@ import { useState } from "react";
 export default function Home() {
   const [sidebar, setSideBar] = useState(false);
   return (
-    <main className=" bg-[var(--black)] h-[100vh] w-full text-white ">
+    <>
       <LandingNavbar handleNavbtnClick={() => setSideBar((prev) => !prev)} />
-      <LandingSideBar showSideBar={sidebar} />
-      <MainLanding />
-    </main>
+      <main className=" bg-[var(--black)] h-[calc(100vh-70px)] w-full text-white overflow-auto">
+        <LandingSideBar showSideBar={sidebar} />
+        <MainLanding />
+      </main>
+    </>
   );
 }
