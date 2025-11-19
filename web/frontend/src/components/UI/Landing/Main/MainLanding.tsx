@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import GetStartedBtn from "../GetstartedBtn/GetStarted.component";
 import "./MainLanding.css";
 
@@ -28,6 +29,39 @@ const MainLanding = () => {
         </div>
 
       </div>
+      <div className="flex justify-center items-center h-[calc(100vh-70px)] w-full landing01">
+
+        <div className=" shadow-2xl rounded-3xl p-10 w-full flex flex-col items-center text-center gap-8 backdrop-blur-sm">
+
+          <h1 className="text-4xl font-extrabold tracking-tight text-white">
+            Try Our Demo Menu
+          </h1>
+
+          <p className="text-lg text-white">
+            Scan the QR code below and explore the experience instantly.
+          </p>
+
+          <div className="p-4 bg-white rounded-2xl shadow-xl border border-gray-200">
+            <img
+              src="/demo-menu.png"
+              alt="demo menu qr"
+              className="object-contain"
+            />
+          </div>
+
+          <Link
+            href={""}
+            target="blank"
+            className="text-lg font-semibold text-blue-700 hover:text-blue-900 underline decoration-2 underline-offset-4 transition-all"
+          >
+            Or click here to open the demo
+          </Link>
+
+        </div>
+
+      </div>
+
+
     </>
   )
 }
