@@ -1,5 +1,4 @@
 "use client";
-import "./GetStarted.css";
 import Link from "next/link";
 
 interface getStartedBtnProps {
