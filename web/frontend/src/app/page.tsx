@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <LandingNavbar />
-      <main className=" bg-[var(--black)] h-[calc(100vh-70px)] w-full text-white overflow-auto">
+      <main className=" bg-[var(--black)] h-[calc(100vh-70px)] w-full text-white overflow-auto hideScrollbar">
         <MainLanding />
       </main>
     </>
