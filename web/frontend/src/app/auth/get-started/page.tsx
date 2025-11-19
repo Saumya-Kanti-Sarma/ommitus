@@ -132,7 +132,7 @@ export default function Login() {
       {/* Left Aside */}
       <aside className="flex-1 bg-[var(--blue)] text-white flex flex-col justify-center items-center p-12 space-y-4 max-md:hidden">
         <img
-          src="/logo/ommitus-main-menu.svg"
+          src="/ommitus-png.png"
           alt="logo.svg"
           className=" w-[50%] max-w-[200px] max-lg:w-[120px]"
         />

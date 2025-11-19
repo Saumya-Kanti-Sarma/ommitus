@@ -29,7 +29,7 @@ const MainLanding = () => {
         </div>
 
       </div>
-      <div className="flex justify-center items-center h-[calc(100vh-70px)] w-full landing01">
+      <div className="flex justify-center items-center h-[calc(100vh-70px)] w-full landing01 hideScrollbar">
 
         <div className=" shadow-2xl rounded-3xl p-10 w-full flex flex-col items-center text-center gap-8 backdrop-blur-sm">
 
