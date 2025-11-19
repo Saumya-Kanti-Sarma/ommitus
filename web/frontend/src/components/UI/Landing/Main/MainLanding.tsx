@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import GetStartedBtn from "../GetstartedBtn/GetStarted.component";
 import "./MainLanding.css";
 
@@ -23,16 +22,12 @@ const MainLanding = () => {
             </h1>
           </div>
           <p className="text-2xl max-w-4xl text-center max-md:text-m max-sm:text-[14px] max-sm:max-w-[380px]"> Let the experience thrive with our digital menu that can be shared on google reviews, social medias, posters, banners anywhere any place...</p>
-          <div className="flex flex-col sm:flex-row items-center justify-between  mt-6  w-full max-w-3xl max-md:justify-center max-md:gap-5">
+          <div className="flex flex-col sm:flex-row items-center justify-center  mt-6  w-full max-w-3xl max-md:justify-center max-md:gap-5">
             <GetStartedBtn fontSize="30px" borderRadius="10px" width="300px" />
-            <Link href="/" target="_blank" rel="noopener noreferrer" className="text-white underline">
-              Watch customer success story
-            </Link>
           </div>
         </div>
 
       </div>
-      <div className="h-[100vh] w-full bg-amber-300"></div>
     </>
   )
 }
