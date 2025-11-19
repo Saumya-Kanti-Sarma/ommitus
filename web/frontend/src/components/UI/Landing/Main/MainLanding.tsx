@@ -50,7 +50,7 @@ const MainLanding = () => {
           </div>
 
           <Link
-            href={""}
+            href={"https://ommitus.vercel.app/customer/Gomati%20Restaurant/68a71b965d3b069d21ee0a40/menu"}
             target="blank"
             className="text-lg font-semibold text-blue-700 hover:text-blue-900 underline decoration-2 underline-offset-4 transition-all"
           >
